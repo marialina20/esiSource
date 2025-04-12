@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Login from '../images/Login.png';
-import Logo from '../images/Logo.png';
+
 import { useNavigate } from 'react-router-dom';
 import '../App.css';
 
@@ -16,7 +16,7 @@ const LoginP = () => {
     if (isLoginSuccessful) {
       console.log('Username:', username);
       console.log('Password:', password);
-      navigate('/homeP');
+      navigate('/UserHomeP');
     } else {
       console.log('Login failed');
     }
