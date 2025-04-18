@@ -50,10 +50,10 @@ const Navvbar = () => {
       {/* Right-aligned nav buttons */}
       <div style={{ display: 'flex', marginLeft: 'auto', alignItems: 'center' }}>
         <button
-          onClick={() => handleNavigate('/homeP')}
-          style={navButtonStyle('/homeP')}
+          onClick={() => handleNavigate('/home')}
+          style={navButtonStyle('/home')}
           onMouseEnter={(e) => (e.target.style.fontWeight = 'bold')}
-          onMouseLeave={(e) => (e.target.style.fontWeight = isActive('/homeP') ? 'bold' : 'normal')}
+          onMouseLeave={(e) => (e.target.style.fontWeight = isActive('/home') ? 'bold' : 'normal')}
         >
           Accueil
         </button>
