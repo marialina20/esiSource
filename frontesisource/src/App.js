@@ -5,6 +5,7 @@ import LoginP from './pages/LoginP';
 import Navvbar from './pages/Navvbar';
 import UserHomeP from './pages/UserHomeP';
 import ArticleDetail from './pages/ArticleDetail';
+import Dashboard from './pages/Dashboard';
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
   <Route path="/SuiviArticle" element={<SuiviArticle />} />
   <Route path="/login" element={<LoginP />} />
   <Route path="/home" element={<UserHomeP />} />
+  <Route path="/dashboard" element={<Dashboard />} />
   <Route path="/article/:id" element={<ArticleDetail />} />
 </Routes>
       </BrowserRouter>
