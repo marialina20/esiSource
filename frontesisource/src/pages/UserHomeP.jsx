@@ -54,7 +54,7 @@ const UserHomeP = () => {
 
       {/* Button for "Voir l'état des Publications" */}
       <div
-        onClick={() => navigate('/etat-publications')}
+        onClick={() => navigate('/SuiviArticle')}
         style={{
           width: '200px',
           height: '200px',
