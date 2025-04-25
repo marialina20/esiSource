@@ -54,3 +54,28 @@ class PublicationSerializer(serializers.ModelSerializer):
             )
         
         return publication
+    def update(self, instance, validated_data):
+        upload_medias = validated_data.pop('upload_medias', [])
+        
+        # Mettre à jour les champs de la publication
+        instance.type = validated_data.get('type', instance.type)
+        instance.contenu = validated_data.get('contenu', instance.contenu)
+        instance.statut = validated_data.get('statut', instance.statut)
+        instance.date_planifiee = validated_data.get('date_planifiee', instance.date_planifiee)
+        
+        # Si le statut change à 'valide', enregistrer la date de validation et le validateur
+        if validated_data.get('statut') == 'valide' and instance.statut != 'valide':
+            instance.date_validation = timezone.now()
+            instance.validateur_id = validated_data.get('validateur_id', instance.validateur_id)
+        
+        instance.save()
+        
+        # Ajouter les nouveaux médias
+        for media_file in upload_medias:
+            Medias.objects.create(
+                publication_id=instance, 
+                url=media_file,
+                date_ajout=timezone.now()
+            )
+        
+        return instance
