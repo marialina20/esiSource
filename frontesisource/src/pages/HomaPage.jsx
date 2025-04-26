@@ -7,6 +7,7 @@ import aboutImage from '../images/Home2.png';
 import { FiEdit } from "react-icons/fi";
 import { HiOutlineDocumentText } from "react-icons/hi";
 import { RiGroupLine } from "react-icons/ri";
+import { MdDashboard } from "react-icons/md";
 import { FaInstagram, FaFacebook, FaTwitter, FaLinkedin } from "react-icons/fa";
 import Navvbartwo from './Navvbartwo';
 
@@ -40,6 +41,10 @@ const HomePage = () => {
                     <Link to="/feedback" className="option">
                         <HiOutlineDocumentText className="option-icon" />
                         <span>Feedback et planification</span>
+                    </Link>
+                    <Link to="/dashboard" className="option">
+                        <MdDashboard className="option-icon" />
+                        <span>Tableau de bord</span>
                     </Link>
                     <Link to="/gestion-utilisateurs" className="option">
                         <RiGroupLine className="option-icon" />
