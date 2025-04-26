@@ -1,28 +1,47 @@
-from rest_framework import viewsets
+# views.py
+from rest_framework import viewsets, status
+from rest_framework.response import Response
+from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.decorators import action
 from .models import Publication, Medias
 from .serializers import PublicationSerializer, MediaSerializer
-from rest_framework.permissions import IsAuthenticated
-from django.contrib.auth import get_user_model
-       
 
 class PublicationViewSet(viewsets.ModelViewSet):
-    """
-    ViewSet pour créer, récupérer, mettre à jour et supprimer des publications.
-    """
-    queryset = Publication.objects.all().order_by('-date_creation')
+    queryset = Publication.objects.all()
     serializer_class = PublicationSerializer
-    permission_classes = [IsAuthenticated]
-
+    parser_classes = [MultiPartParser, FormParser]
+    
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        return context
+    
     def perform_create(self, serializer):
-        User = get_user_model()
-        auteur = User.objects.get(id=1)
-        serializer.save(auteur=auteur)
-
-
-
-class MediasViewSet(viewsets.ModelViewSet):
-    """
-    ViewSet pour gérer les fichiers médias liés à une publication.
-    """
-    queryset = Medias.objects.all().order_by('-type')
-    serializer_class = MediaSerializer
+        # Set the current user as the author if authenticated
+        user = self.request.user if self.request.user.is_authenticated else None
+        serializer.save(auteur_id=user)
+    
+    def perform_update(self, serializer):
+        # Si l'utilisateur est un validateur et change le statut à 'valide'
+        data = self.request.data
+        if 'statut' in data and data['statut'] == 'valide':
+            serializer.save(validateur_id=self.request.user, date_validation=timezone.now())
+        else:
+            serializer.save()
+    
+    @action(detail=True, methods=['delete'])
+    def delete_media(self, request, pk=None):
+        """
+        Supprimer un média spécifique d'une publication
+        """
+        publication = self.get_object()
+        media_id = request.data.get('media_id')
+        
+        if not media_id:
+            return Response({"error": "ID du média requis"}, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            media = Medias.objects.get(id=media_id, publication_id=publication)
+            media.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except Medias.DoesNotExist:
+            return Response({"error": "Média non trouvé"}, status=status.HTTP_404_NOT_FOUND)
