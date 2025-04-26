@@ -6,6 +6,7 @@ from django.db import models
 from django.contrib.auth.models import User
 import mimetypes
 
+
 class Publication(models.Model):
     STATUT_CHOICES = [
         ('brouillon', 'Brouillon'),
