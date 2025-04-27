@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Navvbar from './Navvbar';
+import Navvbar from './NavbarUser';
 
 // Publication class definition
 class Publication {

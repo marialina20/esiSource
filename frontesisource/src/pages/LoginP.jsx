@@ -16,7 +16,7 @@ const LoginP = () => {
     if (isLoginSuccessful) {
       console.log('Username:', username);
       console.log('Password:', password);
-      navigate('/UserHomeP');
+      navigate('/home');
     } else {
       console.log('Login failed');
     }

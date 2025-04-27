@@ -2,7 +2,7 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import SuiviArticle from './pages/SuiviArticle' ;
 import LoginP from './pages/LoginP';
-import Navvbar from './pages/Navvbar';
+import NavbarUser from './pages/NavbarUser';
 import UserHomeP from './pages/UserHomeP';
 import ArticleDetail from './pages/ArticleDetail';
 import HomePage from './pages/HomaPage';

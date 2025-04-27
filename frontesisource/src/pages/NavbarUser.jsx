@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Logo from '../images/Logo.png';
 
@@ -27,6 +27,7 @@ const Navvbar = () => {
     borderBottom: isActive(path) ? '3px solid #4D4D4D' : 'none',
     transition: 'all 0.2s ease',
   });
+
   return (
     <div
       style={{
@@ -46,45 +47,72 @@ const Navvbar = () => {
         src={Logo}
         alt="Logo"
       />
-  
+
       {/* Right-aligned nav buttons */}
       <div style={{ display: 'flex', marginLeft: 'auto', alignItems: 'center' }}>
         <button
           onClick={() => handleNavigate('/home')}
           style={navButtonStyle('/home')}
           onMouseEnter={(e) => (e.target.style.fontWeight = 'bold')}
-          onMouseLeave={(e) => (e.target.style.fontWeight = isActive('/home') ? 'bold' : 'normal')}
+          onMouseLeave={(e) =>
+            (e.target.style.fontWeight = isActive('/home') ? 'bold' : 'normal')
+          }
         >
-          Accueil
+          Home
         </button>
-  
+
         <button
-          onClick={() => handleNavigate('/about')}
-          style={navButtonStyle('/about')}
+          onClick={() => handleNavigate('/add-article')}
+          style={navButtonStyle('/add-article')}
           onMouseEnter={(e) => (e.target.style.fontWeight = 'bold')}
-          onMouseLeave={(e) => (e.target.style.fontWeight = isActive('/about') ? 'bold' : 'normal')}
+          onMouseLeave={(e) =>
+            (e.target.style.fontWeight = isActive('/AjoutArticle') ? 'bold' : 'normal')
+          }
         >
-          About Us
+          Add article
         </button>
-  
+
         <button
-          onClick={() => handleNavigate('/contact')}
-          style={navButtonStyle('/contact')}
+          onClick={() => handleNavigate('/Upload')}
+          style={navButtonStyle('/Upload')}
           onMouseEnter={(e) => (e.target.style.fontWeight = 'bold')}
-          onMouseLeave={(e) => (e.target.style.fontWeight = isActive('/contact') ? 'bold' : 'normal')}
+          onMouseLeave={(e) =>
+            (e.target.style.fontWeight = isActive('/Upload') ? 'bold' : 'normal')
+          }
         >
-          Contact Us
+          Upload article
         </button>
-  
+
         <button
-         style={{
+          onClick={() => handleNavigate('/SuiviArticle')}
+          style={navButtonStyle('/SuiviArticle')}
+          onMouseEnter={(e) => (e.target.style.fontWeight = 'bold')}
+          onMouseLeave={(e) =>
+            (e.target.style.fontWeight = isActive('/SuiviArticle') ? 'bold' : 'normal')
+          }
+        >
+          Article tracking
+        </button>
+
+        <button
+          onClick={() => handleNavigate('/history')}
+          style={navButtonStyle('/history')}
+          onMouseEnter={(e) => (e.target.style.fontWeight = 'bold')}
+          onMouseLeave={(e) =>
+            (e.target.style.fontWeight = isActive('/history') ? 'bold' : 'normal')
+          }
+        >
+          History
+        </button>
+
+        <button
+          style={{
             padding: '8px 16px',
-            marginRight : '80px',
+            marginRight: '80px',
             backgroundColor: '#ffff',
             borderRadius: '5px',
             border: '1px solid #0E00AF',
             boxShadow: '0px 2px 2px rgba(14, 0, 175, 0.7)',
-         
             cursor: 'pointer',
           }}
           onClick={handleSeDeconnecter}
@@ -94,7 +122,6 @@ const Navvbar = () => {
       </div>
     </div>
   );
-  
 };
 
 export default Navvbar;
