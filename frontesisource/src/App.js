@@ -6,7 +6,7 @@ import Navvbar from './pages/Navvbar';
 import UserHomeP from './pages/UserHomeP';
 import ArticleDetail from './pages/ArticleDetail';
 import HomePage from './pages/HomaPage';
-
+import AjoutArticle from './pages/AjoutArticle';
 import Upload from './pages/Upload';
 import Dashboard from './pages/Dashboard'; 
 
@@ -21,7 +21,7 @@ function App() {
   <Route path="/home" element={<UserHomeP />} />
   <Route path="/article/:id" element={<ArticleDetail />} />
   <Route path="/HomePage" element={<HomePage />} />
-
+  <Route path="/AjoutArticle" element={<AjoutArticle />} />
   <Route path="/Upload" element={<Upload />} />
 </Routes>
       </BrowserRouter>
