@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
+
     
 ]
 REST_FRAMEWORK = {
@@ -57,8 +59,33 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+     'corsheaders.middleware.CorsMiddleware',  # Ajoutez cette ligne
+   
+]
+CORS_ALLOW_ALL_ORIGINS = True  # En développement seulement
+CORS_ALLOW_CREDENTIALS = True
+# Pour permettre toutes les méthodes HTTP (GET, POST, etc.)
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
 ]
 
+# Pour permettre tous les headers dans les requêtes
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+]
 ROOT_URLCONF = 'esisource.urls'
 
 TEMPLATES = [
@@ -86,11 +113,9 @@ WSGI_APPLICATION = 'esisource.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'esisourcee',
-        'USER': 'postgres',
-        'PASSWORD': 'ahlem1234',
-        'HOST': 'localhost',  # Replace with your PostgreSQL server's address if necessary
-        'PORT': '5433',          # Leave empty to use the default PostgreSQL port (usually 5432)
+        'NAME': 'esisourceDB',
+        'USER': 'esisource',
+        'PASSWORD': '123456789',
     }
 }
 
