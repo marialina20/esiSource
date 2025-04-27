@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Logo from '../images/Logo.png';
 
-const Navvbar = () => {
+const NavvbarAjoutArticle = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -37,7 +37,9 @@ const Navvbar = () => {
         flexDirection: 'row',
         alignItems: 'center',
         position: 'fixed',
-        padding: '10px 40px',
+        top: 0, 
+        left: 0,
+        padding: '12px 40px',
         zIndex: 1000,
       }}
     >
@@ -55,27 +57,42 @@ const Navvbar = () => {
           onMouseEnter={(e) => (e.target.style.fontWeight = 'bold')}
           onMouseLeave={(e) => (e.target.style.fontWeight = isActive('/home') ? 'bold' : 'normal')}
         >
-          Accueil
+          Home
         </button>
   
         <button
-          onClick={() => handleNavigate('/about')}
-          style={navButtonStyle('/about')}
+          onClick={() => handleNavigate('/AjoutArticle')}
+          style={navButtonStyle('/AjoutArticle')}
           onMouseEnter={(e) => (e.target.style.fontWeight = 'bold')}
-          onMouseLeave={(e) => (e.target.style.fontWeight = isActive('/about') ? 'bold' : 'normal')}
+          onMouseLeave={(e) => (e.target.style.fontWeight = isActive('/AjoutArticle') ? 'bold' : 'normal')}
         >
-          About Us
+          Ajouter Article
         </button>
   
         <button
-          onClick={() => handleNavigate('/contact')}
-          style={navButtonStyle('/contact')}
+          onClick={() => handleNavigate('/Upload')}
+          style={navButtonStyle('/Upload')}
           onMouseEnter={(e) => (e.target.style.fontWeight = 'bold')}
-          onMouseLeave={(e) => (e.target.style.fontWeight = isActive('/contact') ? 'bold' : 'normal')}
+          onMouseLeave={(e) => (e.target.style.fontWeight = isActive('/Upload') ? 'bold' : 'normal')}
         >
-          Contact Us
+          Upload Article
         </button>
-  
+        <button
+          onClick={() => handleNavigate('/SuiviArticle')}
+          style={navButtonStyle('/SuiviArticle')}
+          onMouseEnter={(e) => (e.target.style.fontWeight = 'bold')}
+          onMouseLeave={(e) => (e.target.style.fontWeight = isActive('/SuiviArticle') ? 'bold' : 'normal')}
+        >
+          Suivie Article
+        </button>
+        <button
+          onClick={() => handleNavigate('/Historique')}
+          style={navButtonStyle('/Historique')}
+          onMouseEnter={(e) => (e.target.style.fontWeight = 'bold')}
+          onMouseLeave={(e) => (e.target.style.fontWeight = isActive('/Historique') ? 'bold' : 'normal')}
+        >
+          Historique
+        </button>
         <button
          style={{
             padding: '8px 16px',
@@ -97,4 +114,4 @@ const Navvbar = () => {
   
 };
 
-export default Navvbar;
+export default NavvbarAjoutArticle;

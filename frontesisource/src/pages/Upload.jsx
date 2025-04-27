@@ -5,7 +5,7 @@ import axios from 'axios'; // 👈 ajouter axios pour faire les requêtes HTTP
 import "./Upload.css";
 import img1 from '../images/Group 15.png';
 import img2 from '../images/iconamoon_cloud-add-thin.png';
-import Navvbartwo from './Navvbartwo';
+import NavvbarAjoutArticle from './NavvbarAjoutArticle';
 
 function Upload() {
     const [isConnected, setIsConnected] = useState(true);
@@ -93,7 +93,7 @@ function Upload() {
 
     return (
         <div className="upload-page">
-            <Navvbartwo />
+            <NavvbarAjoutArticle />
 
             <div className="upload-title">
                 {/*<img src={img1} alt="Illustration" className="upload-icon" />*/}

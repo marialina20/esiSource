@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Navvbartwo from './Navvbartwo';
+import NavvbarAjoutArticle from './NavvbarAjoutArticle';
 import { useNavigate } from 'react-router-dom';
 import './AjoutArticle.css';
 import addMediaIcon from '../images/add_media_icon.png';
@@ -97,7 +97,7 @@ const AjoutArticle = () => {
 
     return (
         <>
-            <Navvbartwo />
+            <NavvbarAjoutArticle />
             <div className="ajout-article-container">
                 {/* Partie gauche : Écriture de l'article */}
                 <div className="article-left">
@@ -191,6 +191,7 @@ const AjoutArticle = () => {
                     </div>
 
                     {/* Boutons */}
+
                     <button className="search-btn">Rechercher les trains</button>
                     <button 
                         className="submit-btn"
@@ -199,6 +200,9 @@ const AjoutArticle = () => {
                     >
                         {isSubmitting ? 'Envoi en cours...' : 'Submit'}
                     </button>
+
+                    {/*<button className="search-btn">Rechercher les trains</button>*/}
+                    <button className="submit-btn">Submit</button>
                 </div>
             </div>
         </>

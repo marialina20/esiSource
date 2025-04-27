@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import "./HomaPage.css";
+import "./HomaPageEditeur.css";
 import heroImage from '../images/Home1.png'; 
 import aboutImage from '../images/Home2.png';
 import { FiEdit } from "react-icons/fi";
@@ -9,13 +9,13 @@ import { HiOutlineDocumentText } from "react-icons/hi";
 import { RiGroupLine } from "react-icons/ri";
 import { MdDashboard } from "react-icons/md";
 import { FaInstagram, FaFacebook, FaTwitter, FaLinkedin } from "react-icons/fa";
-import Navvbartwo from './Navvbartwo';
+import NavvbarEditeurHome from './NavvbarHomeEditeur';
 
-const HomePage = () => {
+const HomePageEditeur = () => {
     return (
-        <div className="homepage">
+        <div className="HomePageEditeur">
             
-            <Navvbartwo />
+            <NavvbarEditeurHome />
             <section className="hero-section">
                 <div className="hero-container">
                     <div className="hero-content">
@@ -32,24 +32,24 @@ const HomePage = () => {
                 </div>
             </section>
 
-            <section className="options-sectionx">
-                <div className="options-containerx">
+            <section className="options-section">
+                <div className="options-container">
                     <div className="option">
                         <FiEdit className="option-icon" />
                         <span>Ajout d’articles</span>
                     </div>
+                    
+                    
+                    
+                </div>
+                <div className="options-container">
+                    
                     <div className="option">
                         <HiOutlineDocumentText className="option-icon" />
-                        <span>Feedback et planification</span>
+                        <span>Liste des articles</span>
                     </div>
-                    <div className="option">
-                        <MdDashboard className="option-icon" />
-                        <span>Tableau de bord</span>
-                    </div>
-                    <div className="option">
-                        <RiGroupLine className="option-icon" />
-                        <span>Gestion utilisateurs</span>
-                    </div>
+                    
+                    
                 </div>
             </section>
 
@@ -93,4 +93,4 @@ const HomePage = () => {
     );
 };
 
-export default HomePage;
+export default HomePageEditeur;
