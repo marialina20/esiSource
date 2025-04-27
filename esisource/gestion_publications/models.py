@@ -25,6 +25,7 @@ class Publication(models.Model):
     auteur_id = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
+        null=True,
         related_name='publications_auteur'
     )
     validateur_id = models.ForeignKey(
