@@ -1,8 +1,9 @@
 # models.py
 from django.db import models
-from django.contrib.auth.models import User
 from django.utils import timezone
 import mimetypes
+from django.conf import settings
+
 
 class Publication(models.Model):
     TYPE_CHOICES = [
@@ -22,23 +23,22 @@ class Publication(models.Model):
     type = models.CharField(max_length=20, choices=TYPE_CHOICES, default='siteWeb')
     contenu = models.TextField(default='')
     auteur_id = models.ForeignKey(
-        User, 
-        on_delete=models.CASCADE, 
-        related_name="publications",
-        null=True,  # Allow null for cases where user might not be available
-        default=None
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='publications_auteur'
     )
+    validateur_id = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name='publications_validateur'
+    )
+    
+
     statut = models.CharField(max_length=20, choices=STATUT_CHOICES, default='brouillon')
     date_planifiee = models.DateTimeField(default=timezone.now)  # Default to current time
     date_validation = models.DateTimeField(null=True, blank=True, default=None)
-    validateur_id = models.ForeignKey(
-        User, 
-        on_delete=models.SET_NULL, 
-        null=True, 
-        blank=True, 
-        related_name='publications_validees',
-        default=None
-    )
+    
     
     def __str__(self):
         return f"{self.get_type_display()} - {self.statut}"
