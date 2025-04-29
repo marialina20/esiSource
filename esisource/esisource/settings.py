@@ -33,7 +33,6 @@ AUTH_USER_MODEL = 'users.CustomUser'
 
 INSTALLED_APPS = [
     'rest_framework',
-    'corsheaders',
     'rest_framework_simplejwt',
     'users',
     'gestion_publications',
@@ -64,6 +63,7 @@ MIDDLEWARE = [
      'corsheaders.middleware.CorsMiddleware',  # Ajoutez cette ligne
    
 ]
+
 CORS_ALLOW_ALL_ORIGINS = True  # En développement seulement
 CORS_ALLOW_CREDENTIALS = True
 # Pour permettre toutes les méthodes HTTP (GET, POST, etc.)
@@ -118,11 +118,14 @@ WSGI_APPLICATION = 'esisource.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'esisourceDB',
+        'NAME': 'esisourcedb',
         'USER': 'esisource',
         'PASSWORD': '123456789',
+        'HOST': 'localhost',  # Or your specific host
+        'PORT': '5432',  # Default PostgreSQL port
     }
 }
+
 
 
 # Password validation

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Logo from '../images/Logo.png';
 
@@ -27,6 +27,7 @@ const NavvbarEditeurHome = () => {
     borderBottom: isActive(path) ? '3px solid #4D4D4D' : 'none',
     transition: 'all 0.2s ease',
   });
+
   return (
     <div
       style={{
@@ -52,34 +53,31 @@ const NavvbarEditeurHome = () => {
       {/* Right-aligned nav buttons */}
       <div style={{ display: 'flex', marginLeft: 'auto', alignItems: 'center' }}>
         <button
-          onClick={() => handleNavigate('/home')}
-          style={navButtonStyle('/home')}
+          onClick={() => handleNavigate('/HomePageEditeur')}  // Updated to navigate to HomePageEditeur
+          style={navButtonStyle('/HomePageEditeur')}
           onMouseEnter={(e) => (e.target.style.fontWeight = 'bold')}
-          onMouseLeave={(e) => (e.target.style.fontWeight = isActive('/home') ? 'bold' : 'normal')}
+          onMouseLeave={(e) => (e.target.style.fontWeight = isActive('/HomePageEditeur') ? 'bold' : 'normal')}
         >
           Home
         </button>
   
         <button
-          onClick={() => handleNavigate('/Articles-editeur')}
-          style={navButtonStyle('/Articles-editeur')}
+          onClick={() => handleNavigate('/ArticlesList')}  // Updated to navigate to ArticlesList
+          style={navButtonStyle('/ArticlesList')}
           onMouseEnter={(e) => (e.target.style.fontWeight = 'bold')}
-          onMouseLeave={(e) => (e.target.style.fontWeight = isActive('/Articles-editeur') ? 'bold' : 'normal')}
+          onMouseLeave={(e) => (e.target.style.fontWeight = isActive('/ArticlesList') ? 'bold' : 'normal')}
         >
           Liste des articles
         </button>
   
-        
-  
         <button
-         style={{
+          style={{
             padding: '8px 16px',
-            marginRight : '80px',
+            marginRight: '80px',
             backgroundColor: '#ffff',
             borderRadius: '5px',
             border: '1px solid #0E00AF',
             boxShadow: '0px 2px 2px rgba(14, 0, 175, 0.7)',
-         
             cursor: 'pointer',
           }}
           onClick={handleSeDeconnecter}
@@ -89,7 +87,6 @@ const NavvbarEditeurHome = () => {
       </div>
     </div>
   );
-  
 };
 
 export default NavvbarEditeurHome;

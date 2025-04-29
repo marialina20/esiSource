@@ -10,6 +10,8 @@ import AjoutArticle from './pages/AjoutArticle';
 import Upload from './pages/Upload';
 import Dashboard from './pages/Dashboard';
 import HomePageEditeur from './pages/HomaPageEditeur';
+import ArticlesList from './pages/ArticlesList';
+import ArticleModel from './pages/ArticleModal';
 function App() {
   return (
     <BrowserRouter>
@@ -24,6 +26,8 @@ function App() {
           <Route path="/AjoutArticle" element={<AjoutArticle />} />
           <Route path="/Upload" element={<Upload />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/HomePageEditeur" element={<HomePageEditeur />} />
+          <Route path="/ArticlesList" element={<ArticlesList />} />
           <Route path="/HomePageEditeur" element={<HomePageEditeur />} />
         </Routes>
       </div>
