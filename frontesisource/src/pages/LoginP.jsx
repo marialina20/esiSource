@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import Login from '../images/Login.png';
 
 import { useNavigate } from 'react-router-dom';
@@ -11,17 +12,87 @@ const LoginP = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [buttonActive, setButtonActive] = useState(false);
 
-  const handleLogin = () => {
-    const isLoginSuccessful = true;
-    if (isLoginSuccessful) {
-      console.log('Username:', username);
-      console.log('Password:', password);
-      navigate('/UserHomeP');
-    } else {
-      console.log('Login failed');
+  /*const handleLogin = async () => {
+    try {
+      console.log("Tentative de login...");
+      
+      const response = await fetch('http://localhost:8000/users/login/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: username,
+          password: password,
+        }),
+      });
+      
+      console.log("Réponse fetch:", response);
+      
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Login réussi', data);
+        
+        // Stocker le token
+        localStorage.setItem('access_token', data.access);
+        console.log("Token enregistré:", data.access);
+        
+        // Tentative de navigation avec replace
+        console.log("Navigation vers /home");
+        navigate('/home', { replace: true });
+        
+        // Si la navigation ne fonctionne pas, utiliser window.location comme fallback
+        setTimeout(() => {
+          if (window.location.pathname !== '/home') {
+            console.log("Navigation fallback avec window.location");
+            window.location.href = '/home';
+          }
+        }, 300);
+      } else {
+        const errorData = await response.json().catch(() => ({ detail: "Erreur de connexion" }));
+        console.error('Erreur de connexion:', errorData);
+        alert("Échec de la connexion: " + (errorData.detail || "Vérifiez vos identifiants"));
+      }
+    } catch (error) {
+      console.error('Erreur serveur:', error);
+      alert("Erreur de connexion au serveur");
     }
   };
+*/
 
+
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post('http://localhost:8000/users/login/', {
+        email: username,
+        password: password,
+      });
+  
+      const { token, user } = response.data;
+  
+      // Stockage du token si besoin
+      localStorage.setItem('access_token', token.access);
+      localStorage.setItem('refresh_token', token.refresh);
+      localStorage.setItem('user_role', user.role);
+  
+      // Redirection selon le rôle
+      switch (user.role) {
+        case 'admin':
+          navigate('/HomePage');
+          break;
+        case 'editeur':
+          navigate('/HomePageEditeur');
+          break;
+        case 'redacteur':
+          navigate('/home');
+          break;
+        default:
+          navigate('/home');
+      }
+    } catch (error) {
+      console.error('Erreur lors de la connexion :', error.response?.data || error.message);
+    }
+  };
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
   };

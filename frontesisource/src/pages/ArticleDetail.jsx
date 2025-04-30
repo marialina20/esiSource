@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import Navvbar from './Navvbar';
+import Navvbar from './NavbarUser';
 import { publications } from './SuiviArticle';
 
 const StatusIndicator = ({ label, active, isLast, isRefused, isAccepted }) => {

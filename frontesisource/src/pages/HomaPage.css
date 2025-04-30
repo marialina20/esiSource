@@ -95,14 +95,14 @@
 }
 
 /* ======= Nouveau Rectangle (aligné avec Hero) ======= */
-.options-section {
+.options-sectionx {
     display: flex;
     justify-content: center;
     margin-top: 20px;
     width: 100%;
 }
 
-.options-container {
+.options-containerx {
     display: flex;
     background: rgba(66, 165, 245, 0.4);
     padding: 20px 40px;
@@ -125,10 +125,10 @@
     transition: 0.3s;
 }
 
-.option:hover {
+/*.option:hover {
     transform: scale(1.05);
     color: #0d47a1;
-}
+}*/
 
 /* Icônes */
 .option-icon {

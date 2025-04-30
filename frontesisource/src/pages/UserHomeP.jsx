@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import pub from '../images/pub.png'; // Import pub image
 import etat from '../images/etat.png'; // Import etat image
-import Navvbar from './Navvbar';
+import NavbarUser from './NavbarUser';
 
 
 const UserHomeP = () => {
@@ -10,7 +10,7 @@ const UserHomeP = () => {
 
   return (
     <div>
-<Navvbar />
+<NavbarUser />
     <div
       style={{
         display: 'flex',
