@@ -32,24 +32,24 @@ const HomePage = () => {
                 </div>
             </section>
 
-            <section className="options-section">
-                <div className="options-container">
-                    <Link to="/ajout-article" className="option">
+            <section className="options-sectionx">
+                <div className="options-containerx">
+                    <div className="option">
                         <FiEdit className="option-icon" />
                         <span>Ajout d’articles</span>
-                    </Link>
-                    <Link to="/feedback" className="option">
+                    </div>
+                    <div className="option">
                         <HiOutlineDocumentText className="option-icon" />
                         <span>Feedback et planification</span>
-                    </Link>
-                    <Link to="/dashboard" className="option">
+                    </div>
+                    <div className="option">
                         <MdDashboard className="option-icon" />
                         <span>Tableau de bord</span>
-                    </Link>
-                    <Link to="/gestion-utilisateurs" className="option">
+                    </div>
+                    <div className="option">
                         <RiGroupLine className="option-icon" />
                         <span>Gestion utilisateurs</span>
-                    </Link>
+                    </div>
                 </div>
             </section>
 
