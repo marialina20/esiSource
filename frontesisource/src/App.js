@@ -10,6 +10,9 @@ import AjoutArticle from './pages/AjoutArticle';
 import Upload from './pages/Upload';
 import Dashboard from './pages/Dashboard';
 import HomePageEditeur from './pages/HomaPageEditeur';
+import AdminManager from './pages/AdminManager';
+import Historique from './pages/Historique';
+
 function App() {
   return (
     <BrowserRouter>
@@ -25,6 +28,8 @@ function App() {
           <Route path="/Upload" element={<Upload />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/HomePageEditeur" element={<HomePageEditeur />} />
+          <Route path="/AdminManager" element={<AdminManager />} />
+          <Route path="/Historique" element={<Historique />} />
         </Routes>
       </div>
     </BrowserRouter>
