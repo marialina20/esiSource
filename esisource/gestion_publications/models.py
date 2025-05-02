@@ -5,6 +5,7 @@ import mimetypes
 from django.conf import settings
 
 
+
 class Publication(models.Model):
     TYPE_CHOICES = [
         ('siteWeb', 'Site Web'),

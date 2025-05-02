@@ -12,7 +12,7 @@ const LoginP = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [buttonActive, setButtonActive] = useState(false);
 
-  const handleLogin = async () => {
+  /*const handleLogin = async () => {
     try {
       console.log("Tentative de login...");
       
@@ -56,6 +56,41 @@ const LoginP = () => {
     } catch (error) {
       console.error('Erreur serveur:', error);
       alert("Erreur de connexion au serveur");
+    }
+  };
+*/
+
+
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post('http://localhost:8000/users/login/', {
+        email: username,
+        password: password,
+      });
+  
+      const { token, user } = response.data;
+  
+      // Stockage du token si besoin
+      localStorage.setItem('access_token', token.access);
+      localStorage.setItem('refresh_token', token.refresh);
+      localStorage.setItem('user_role', user.role);
+  
+      // Redirection selon le rôle
+      switch (user.role) {
+        case 'admin':
+          navigate('/HomePage');
+          break;
+        case 'editeur':
+          navigate('/HomePageEditeur');
+          break;
+        case 'redacteur':
+          navigate('/home');
+          break;
+        default:
+          navigate('/home');
+      }
+    } catch (error) {
+      console.error('Erreur lors de la connexion :', error.response?.data || error.message);
     }
   };
   const handleTogglePassword = () => {

@@ -8,6 +8,7 @@ urlpatterns = [
     # Assurez-vous que ce chemin est correct
     path('api/', include('gestion_publications.urls')),  # Remplacez votre_app par le nom de votre application
     path('users/', include('users.urls')),
+
 ]
 
 # Ajoutez ceci pour servir les fichiers médias en développement
