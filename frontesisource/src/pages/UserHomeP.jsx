@@ -24,7 +24,7 @@ const UserHomeP = () => {
     >
       {/* Button for "Publier un article" */}
       <div
-        onClick={() => navigate('/publier')}
+        onClick={() => navigate('/AjoutArticle')}
         style={{
           width: '200px',
           height: '200px',

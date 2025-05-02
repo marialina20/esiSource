@@ -118,9 +118,11 @@ WSGI_APPLICATION = 'esisource.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'esisourceDB',
-        'USER': 'esisource',
-        'PASSWORD': '123456789',
+        'NAME': 'esisourceee',
+        'USER': 'postgres',
+        'PASSWORD': '1111',
+        'HOST': 'localhost',
+        'POST' : '5432'
       
     }
 }
