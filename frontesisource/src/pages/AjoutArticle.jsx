@@ -12,11 +12,11 @@ const AjoutArticle = () => {
     const [startDate, setStartDate] = useState(new Date());
     const [mediaFiles, setMediaFiles] = useState([]);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [lastPublication, setLastPublication] = useState(null);
 
     const days = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'];
-    const today = new Date();
+    const navigate = useNavigate();
 
-    // Fonction pour obtenir 7 jours à partir de startDate
     const getNextDays = () => {
         let dates = [];
         for (let i = 0; i < 7; i++) {
@@ -29,8 +29,6 @@ const AjoutArticle = () => {
 
     const nextDays = getNextDays();
 
-    const navigate = useNavigate();
-
     const isSameDay = (date1, date2) => {
         return (
             date1.getDate() === date2.getDate() &&
@@ -39,14 +37,16 @@ const AjoutArticle = () => {
         );
     };
 
-    // Fonction pour gérer l'upload de fichiers
     const handleFileChange = (e) => {
         if (e.target.files) {
             setMediaFiles([...mediaFiles, ...Array.from(e.target.files)]);
         }
     };
 
-    // Fonction pour soumettre le formulaire
+    const handleRemoveMedia = (indexToRemove) => {
+        setMediaFiles((prevFiles) => prevFiles.filter((_, index) => index !== indexToRemove));
+    };
+
     const handleSubmit = async () => {
         if (!article.trim()) {
             alert("Veuillez écrire un article avant de soumettre");
@@ -56,32 +56,24 @@ const AjoutArticle = () => {
         setIsSubmitting(true);
 
         try {
-            // Créer un objet FormData pour envoyer les données et les fichiers
             const formData = new FormData();
             formData.append('contenu', article);
             formData.append('type', selectedOption);
-            
-            // Formater la date avec heure pour correspondre à DateTimeField
+
             const dateTime = new Date(selectedDate);
             formData.append('date_planifiee', dateTime.toISOString());
-            
             formData.append('statut', 'en_attente');
 
-            // Ajouter les fichiers médias s'il y en a
             mediaFiles.forEach((file) => {
                 formData.append('media_files', file);
             });
 
-            // Configuration pour inclure les tokens d'authentification (si nécessaire)
             const config = {
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    // Décommentez la ligne suivante si vous utilisez JWT
-                    // 'Authorization': `Bearer ${localStorage.getItem('token')}`
                 }
             };
 
-            // Envoyer la requête POST à l'API
             const response = await axios.post('http://localhost:8000/api/publications/', formData, config);
             setLastPublication(response.data);
         } catch (error) {
@@ -92,18 +84,14 @@ const AjoutArticle = () => {
         }
     };
 
-    const [lastPublication, setLastPublication] = useState(null);
-
     return (
         <>
             <NavvbarAjoutArticle />
             <div className="ajout-article-container">
                 <h2 className="title">Créer votre article</h2>
-        
+
                 <div className="article-body">
                     <div className="editor">
-                        {/* Affichage des médias sélectionnés */}
-                        
                         <textarea
                             value={article}
                             onChange={(e) => setArticle(e.target.value)}
@@ -115,6 +103,8 @@ const AjoutArticle = () => {
                                 <div className="media-files">
                                     {mediaFiles.map((file, index) => (
                                         <div key={index} className="media-item">
+                                            <span className="close-icon" onClick={() => handleRemoveMedia(index)}>×</span>
+
                                             {file.type.startsWith('image/') && (
                                                 <img src={URL.createObjectURL(file)} alt={`media-${index}`} width="150" />
                                             )}
@@ -142,7 +132,7 @@ const AjoutArticle = () => {
                             <img src={addMediaIcon} alt="Ajouter un média" />
                         </label>
                     </div>
-        
+
                     <div className="right-panel">
                         <div className="publication-type">
                             <label className={selectedOption === 'siteWeb' ? 'selected' : ''}>
@@ -166,14 +156,14 @@ const AjoutArticle = () => {
                                 Page Facebook
                             </label>
                         </div>
-        
+
                         <div className="calendar-nav">
                             <button onClick={() => setStartDate(prev => {
                                 const newStart = new Date(prev);
                                 newStart.setDate(prev.getDate() - 1);
                                 return newStart;
                             })}>❮</button>
-        
+
                             {nextDays.map((date, index) => (
                                 <div
                                     key={index}
@@ -184,14 +174,14 @@ const AjoutArticle = () => {
                                     <span>{date.getDate()}</span>
                                 </div>
                             ))}
-        
+
                             <button onClick={() => setStartDate(prev => {
                                 const newStart = new Date(prev);
                                 newStart.setDate(prev.getDate() + 1);
                                 return newStart;
                             })}>❯</button>
                         </div>
-        
+
                         <button 
                             className="submit-button"
                             onClick={handleSubmit}
@@ -206,7 +196,7 @@ const AjoutArticle = () => {
                 <div className="publication-preview">
                     <h3>Publication soumise :</h3>
                     <p>{lastPublication.contenu}</p>
-        
+
                     {lastPublication.medias.map((media, index) => {
                         if (media.type === 'image') {
                             return <img key={index} src={media.url} alt={`media-${index}`} width="250" />;

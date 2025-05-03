@@ -28,7 +28,7 @@
 }
 
 .editor textarea {
-  width: 100%; /* Réduire la largeur du textarea */
+  width: 97%; /* Réduire la largeur du textarea */
   height: 40px; /* Hauteur réduite */
   border: none;
   outline: none;
@@ -143,6 +143,7 @@
   width: 500px; /* Augmenter la largeur des images et vidéos */
   height: auto; /* Conserver le ratio de l'image/vidéo */
 }
+
 .media-preview {
   margin-top: 10px;
   display: flex;
@@ -157,4 +158,40 @@
   object-fit: cover;
   border-radius: 8px;
   box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+.remove-button {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin-top: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 0.9rem;
+}
+
+.media-item {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative; /* Nécessaire pour positionner la croix */
+}
+
+.close-icon {
+  position: absolute;
+  top: 2px;
+  right: 5px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  line-height: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  z-index: 1;
 }
