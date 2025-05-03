@@ -72,6 +72,7 @@ const LoginP = () => {
   
       // Stockage du token si besoin
       localStorage.setItem('access_token', token.access);
+      console.log('Token from storage:', token); // Debug log
       localStorage.setItem('refresh_token', token.refresh);
       localStorage.setItem('user_role', user.role);
   

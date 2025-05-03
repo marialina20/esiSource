@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import axios from 'axios';
 import Logo from '../images/Logo.png';
 
 const NavvbarAdminHome = () => {
@@ -8,12 +9,25 @@ const NavvbarAdminHome = () => {
 
   const isActive = (path) => location.pathname === path;
 
-  const handleNavigate = (path) => {
+  const handleNavigation = (path) => {
+    // Verify token before navigation
+    const token = localStorage.getItem('access_token');
+    if (!token) {
+      // Store the intended path to redirect after login
+      navigate('/LoginP', { state: { from: location }, replace: true });
+      return;
+    }
     navigate(path);
   };
 
   const handleSeDeconnecter = () => {
-    navigate('/LoginP');
+    // Clear authentication tokens
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
+    delete axios.defaults.headers.common['Authorization'];
+    
+    // Redirect to login and prevent back navigation
+    navigate('/login', { replace: true });
   };
 
   const navButtonStyle = (path) => ({
@@ -26,7 +40,11 @@ const NavvbarAdminHome = () => {
     cursor: 'pointer',
     borderBottom: isActive(path) ? '3px solid #4D4D4D' : 'none',
     transition: 'all 0.2s ease',
+    '&:hover': {
+      fontWeight: 'bold'
+    }
   });
+
   return (
     <div
       style={{
@@ -44,15 +62,16 @@ const NavvbarAdminHome = () => {
       }}
     >
       <img
-        style={{ height: '32px', marginRight: '40px' }}
+        style={{ height: '32px', marginRight: '40px', cursor: 'pointer' }}
         src={Logo}
         alt="Logo"
+        onClick={() => handleNavigation('/home')}
       />
   
       {/* Right-aligned nav buttons */}
       <div style={{ display: 'flex', marginLeft: 'auto', alignItems: 'center' }}>
         <button
-          onClick={() => handleNavigate('/home')}
+          onClick={() => handleNavigation('/HomePage')}
           style={navButtonStyle('/home')}
           onMouseEnter={(e) => (e.target.style.fontWeight = 'bold')}
           onMouseLeave={(e) => (e.target.style.fontWeight = isActive('/home') ? 'bold' : 'normal')}
@@ -61,16 +80,16 @@ const NavvbarAdminHome = () => {
         </button>
   
         <button
-          onClick={() => handleNavigate('/Manage')}
+          onClick={() => handleNavigation('/admin/manage-users')}
           style={navButtonStyle('/Manage')}
           onMouseEnter={(e) => (e.target.style.fontWeight = 'bold')}
-          onMouseLeave={(e) => (e.target.style.fontWeight = isActive('/Manage') ? 'bold' : 'normal')}
+          onMouseLeave={(e) => (e.target.style.fontWeight = isActive('/admin/manage-users') ? 'bold' : 'normal')}
         >
           Manage users
         </button>
   
         <button
-          onClick={() => handleNavigate('/Dashboard')}
+          onClick={() => handleNavigation('/Dashboard')}
           style={navButtonStyle('/Dashboard')}
           onMouseEnter={(e) => (e.target.style.fontWeight = 'bold')}
           onMouseLeave={(e) => (e.target.style.fontWeight = isActive('/Dashboard') ? 'bold' : 'normal')}
@@ -79,24 +98,28 @@ const NavvbarAdminHome = () => {
         </button>
   
         <button
-         style={{
+          style={{
             padding: '8px 16px',
-            marginRight : '80px',
+            marginRight: '80px',
             backgroundColor: '#ffff',
             borderRadius: '5px',
             border: '1px solid #0E00AF',
             boxShadow: '0px 2px 2px rgba(14, 0, 175, 0.7)',
-         
             cursor: 'pointer',
+            transition: 'all 0.2s ease',
+            '&:hover': {
+              backgroundColor: '#f0f0f0'
+            }
           }}
           onClick={handleSeDeconnecter}
+          onMouseEnter={(e) => (e.target.style.backgroundColor = '#f0f0f0')}
+          onMouseLeave={(e) => (e.target.style.backgroundColor = '#ffff')}
         >
           Sign out
         </button>
       </div>
     </div>
   );
-  
 };
 
 export default NavvbarAdminHome;

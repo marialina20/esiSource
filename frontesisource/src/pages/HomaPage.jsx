@@ -10,12 +10,13 @@ import { RiGroupLine } from "react-icons/ri";
 import { MdDashboard } from "react-icons/md";
 import { FaInstagram, FaFacebook, FaTwitter, FaLinkedin } from "react-icons/fa";
 import Navvbartwo from './Navvbartwo';
+import NavvbarAdminHome from './NavvbarHomeAdmin'
 
 const HomePage = () => {
     return (
         <div className="homepage">
             
-            <Navvbartwo />
+            <NavvbarAdminHome />
             <section className="hero-section">
                 <div className="hero-container">
                     <div className="hero-content">

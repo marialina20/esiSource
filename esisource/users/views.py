@@ -80,7 +80,7 @@ class UserDeleteView(APIView):
 
 # Récupérer l’utilisateur connecté
 class UserView(APIView):
-   # permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
         return Response(UserSerializer(request.user).data)
@@ -111,7 +111,7 @@ class ChangePasswordView(APIView):
     
  # afficher le detail d'un utilisateur 
 class UserDetailView(APIView):
-    #permission_classes = [IsAdmin] 
+    permission_classes = [IsAdmin] 
 
     def get(self, request, pk):
         try:

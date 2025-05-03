@@ -12,6 +12,7 @@ import Dashboard from './pages/Dashboard';
 import HomePageEditeur from './pages/HomaPageEditeur';
 import ArticlesList from './pages/ArticlesList';
 import ArticleModel from './pages/ArticleModal';
+import AdminManager from './pages/AdminManager';
 function App() {
   return (
     <BrowserRouter>
@@ -28,7 +29,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/HomePageEditeur" element={<HomePageEditeur />} />
           <Route path="/ArticlesList" element={<ArticlesList />} />
-          <Route path="/HomePageEditeur" element={<HomePageEditeur />} />
+          <Route path="/admin/manage-users" element={<AdminManager />} />
         </Routes>
       </div>
     </BrowserRouter>

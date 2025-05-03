@@ -3,15 +3,15 @@ import NavvbarAjoutArticle from './NavvbarAjoutArticle';
 import { useNavigate } from 'react-router-dom';
 import './AjoutArticle.css';
 import addMediaIcon from '../images/add_media_icon.png';
-import axios from 'axios';
+import axios from 'axios'; // Nouvelle importation pour les requêtes API
 
 const AjoutArticle = () => {
     const [article, setArticle] = useState('');
-    const [selectedOption, setSelectedOption] = useState('siteWeb');
+    const [selectedOption, setSelectedOption] = useState('siteWeb'); // Changé pour correspondre aux choix du modèle
     const [selectedDate, setSelectedDate] = useState(new Date());
-    const [startDate, setStartDate] = useState(new Date());
-    const [mediaFiles, setMediaFiles] = useState([]);
-    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [startDate, setStartDate] = useState(new Date()); //  point de départ pour les jours affichés
+    const [mediaFiles, setMediaFiles] = useState([]); // Pour stocker les fichiers médias
+    const [isSubmitting, setIsSubmitting] = useState(false); // État pour le bouton de soumission
 
     const days = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'];
     const today = new Date();
@@ -39,14 +39,14 @@ const AjoutArticle = () => {
         );
     };
 
-    // Fonction pour gérer l'upload de fichiers
+    // Nouvelle fonction pour gérer l'upload de fichiers
     const handleFileChange = (e) => {
         if (e.target.files) {
             setMediaFiles([...mediaFiles, ...Array.from(e.target.files)]);
         }
     };
 
-    // Fonction pour soumettre le formulaire
+    // Nouvelle fonction pour soumettre le formulaire
     const handleSubmit = async () => {
         if (!article.trim()) {
             alert("Veuillez écrire un article avant de soumettre");
@@ -59,13 +59,14 @@ const AjoutArticle = () => {
             // Créer un objet FormData pour envoyer les données et les fichiers
             const formData = new FormData();
             formData.append('contenu', article);
-            formData.append('type', selectedOption);
+            formData.append('type', selectedOption); // Changé type_publication en type
             
             // Formater la date avec heure pour correspondre à DateTimeField
             const dateTime = new Date(selectedDate);
-            formData.append('date_planifiee', dateTime.toISOString());
+            // Format ISO pour Django: YYYY-MM-DDTHH:MM:SS
+            formData.append('date_planifiee', dateTime.toISOString()); // Changé date_publication en date_planifiee
             
-            formData.append('statut', 'en_attente');
+            formData.append('statut', 'en_attente'); // Utilisez le statut par défaut ou choisissez parmi les options
 
             // Ajouter les fichiers médias s'il y en a
             mediaFiles.forEach((file) => {
@@ -83,7 +84,9 @@ const AjoutArticle = () => {
 
             // Envoyer la requête POST à l'API
             const response = await axios.post('http://localhost:8000/api/publications/', formData, config);
-            setLastPublication(response.data);
+            
+            alert('Publication soumise avec succès!');
+            navigate('/publications'); // Ajustez ce chemin selon votre structure de routes
         } catch (error) {
             console.error('Erreur lors de la soumission:', error);
             alert('Erreur lors de la soumission de la publication. Veuillez réessayer.');
@@ -92,45 +95,20 @@ const AjoutArticle = () => {
         }
     };
 
-    const [lastPublication, setLastPublication] = useState(null);
-
     return (
         <>
             <NavvbarAjoutArticle />
             <div className="ajout-article-container">
-                <h2 className="title">Créer votre article</h2>
-        
-                <div className="article-body">
-                    <div className="editor">
-                        {/* Affichage des médias sélectionnés */}
-                        
+                {/* Partie gauche : Écriture de l'article */}
+                <div className="article-left">
+                    <h2>✏️ creer votre article</h2>
+                    <div className="textarea-container">
                         <textarea
                             value={article}
                             onChange={(e) => setArticle(e.target.value)}
-                            placeholder="Écrivez votre article ici ..."
+                            placeholder="ecrivez votre article ici ..."
                         />
-                        {mediaFiles.length > 0 && (
-                            <div className="media-preview">
-                                <h4>Fichiers sélectionnés :</h4>
-                                <div className="media-files">
-                                    {mediaFiles.map((file, index) => (
-                                        <div key={index} className="media-item">
-                                            {file.type.startsWith('image/') && (
-                                                <img src={URL.createObjectURL(file)} alt={`media-${index}`} width="150" />
-                                            )}
-                                            {file.type.startsWith('video/') && (
-                                                <video width="150" controls>
-                                                    <source src={URL.createObjectURL(file)} type="video/mp4" />
-                                                </video>
-                                            )}
-                                            {!file.type.startsWith('image/') && !file.type.startsWith('video/') && (
-                                                <p>Média non supporté</p>
-                                            )}
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
+                        {/* Icône d'ajout de média en bas à droite */}
                         <label className="upload-icon">
                             <input 
                                 type="file" 
@@ -142,86 +120,91 @@ const AjoutArticle = () => {
                             <img src={addMediaIcon} alt="Ajouter un média" />
                         </label>
                     </div>
-        
-                    <div className="right-panel">
-                        <div className="publication-type">
-                            <label className={selectedOption === 'siteWeb' ? 'selected' : ''}>
-                                <input
-                                    type="radio"
-                                    name="publication"
-                                    value="siteWeb"
-                                    checked={selectedOption === 'siteWeb'}
-                                    onChange={() => setSelectedOption('siteWeb')}
-                                />
-                                Site web
-                            </label>
-                            <label className={selectedOption === 'pageFacebook' ? 'selected' : ''}>
-                                <input
-                                    type="radio"
-                                    name="publication"
-                                    value="pageFacebook"
-                                    checked={selectedOption === 'pageFacebook'}
-                                    onChange={() => setSelectedOption('pageFacebook')}
-                                />
-                                Page Facebook
-                            </label>
+                    
+                    {/* Affichage des fichiers sélectionnés */}
+                    {mediaFiles.length > 0 && (
+                        <div className="selected-files">
+                            <h4>Fichiers sélectionnés:</h4>
+                            <ul>
+                                {mediaFiles.map((file, index) => (
+                                    <li key={index}>{file.name}</li>
+                                ))}
+                            </ul>
                         </div>
-        
-                        <div className="calendar-nav">
-                            <button onClick={() => setStartDate(prev => {
-                                const newStart = new Date(prev);
-                                newStart.setDate(prev.getDate() - 1);
-                                return newStart;
-                            })}>❮</button>
-        
-                            {nextDays.map((date, index) => (
-                                <div
-                                    key={index}
-                                    className={`calendar-day ${isSameDay(date, selectedDate) ? 'active' : ''}`}
-                                    onClick={() => setSelectedDate(date)}
-                                >
-                                    <span>{days[date.getDay()]}</span>
-                                    <span>{date.getDate()}</span>
-                                </div>
-                            ))}
-        
-                            <button onClick={() => setStartDate(prev => {
-                                const newStart = new Date(prev);
-                                newStart.setDate(prev.getDate() + 1);
-                                return newStart;
-                            })}>❯</button>
-                        </div>
-        
-                        <button 
-                            className="submit-button"
-                            onClick={handleSubmit}
-                            disabled={isSubmitting}
-                        >
-                            {isSubmitting ? 'Envoi en cours...' : 'Submit'}
+                    )}
+                </div>
+
+                {/* Partie droite : Options de publication */}
+                <div className="article-right">
+                    <div className="options">
+                        <label>
+                            <input
+                                type="radio"
+                                name="publication"
+                                value="siteWeb"
+                                checked={selectedOption === 'siteWeb'}
+                                onChange={() => setSelectedOption('siteWeb')}
+                            />
+                            <span>Site web</span>
+                        </label>
+                        <label>
+                            <input
+                                type="radio"
+                                name="publication"
+                                value="pageFacebook"
+                                checked={selectedOption === 'pageFacebook'}
+                                onChange={() => setSelectedOption('pageFacebook')}
+                            />
+                            <span>Page Facebook</span>
+                        </label>
+                    </div>
+
+                    {/* Calendrier de sélection de date */}
+                    <div className="calendar-container">
+                        <button onClick={() => setStartDate(prev => {
+                            const newStart = new Date(prev);
+                            newStart.setDate(prev.getDate() - 1);
+                            return newStart;
+                        })}>
+                            ◀
+                        </button>
+                        {nextDays.map((date, index) => (
+                            <div
+                                key={index}
+                                className={`day-box 
+                                    ${isSameDay(date, selectedDate) ? 'selected' : ''}
+                                    ${isSameDay(date, today) && !isSameDay(selectedDate, today) ? 'today' : ''}`
+                                }
+                                onClick={() => setSelectedDate(date)}
+                            >
+                                <span>{days[date.getDay()]}</span>
+                                <span>{date.getDate()}</span>
+                            </div>
+                        ))}
+                        <button onClick={() => setStartDate(prev => {
+                            const newStart = new Date(prev);
+                            newStart.setDate(prev.getDate() + 1);
+                            return newStart;
+                        })}>
+                            ▶
                         </button>
                     </div>
+
+                    {/* Boutons */}
+
+                    <button className="search-btn">Rechercher les trains</button>
+                    <button 
+                        className="submit-btn"
+                        onClick={handleSubmit}
+                        disabled={isSubmitting}
+                    >
+                        {isSubmitting ? 'Envoi en cours...' : 'Submit'}
+                    </button>
+
+                    {/*<button className="search-btn">Rechercher les trains</button>*/}
+                    <button className="submit-btn">Submit</button>
                 </div>
             </div>
-            {lastPublication && (
-                <div className="publication-preview">
-                    <h3>Publication soumise :</h3>
-                    <p>{lastPublication.contenu}</p>
-        
-                    {lastPublication.medias.map((media, index) => {
-                        if (media.type === 'image') {
-                            return <img key={index} src={media.url} alt={`media-${index}`} width="250" />;
-                        } else if (media.type === 'video') {
-                            return (
-                                <video key={index} width="320" controls>
-                                    <source src={media.url} type="video/mp4" />
-                                </video>
-                            );
-                        } else {
-                            return <p key={index}>Média non supporté</p>;
-                        }
-                    })}
-                </div>
-            )}
         </>
     );
 };

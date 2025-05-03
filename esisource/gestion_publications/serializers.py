@@ -2,22 +2,9 @@ from rest_framework import serializers
 from .models import Publication, Medias
 
 class MediaSerializer(serializers.ModelSerializer):
-    # class Meta:
-    #     model = Medias
-    #     fields = ['id', 'url', 'type']
-    
-    url = serializers.SerializerMethodField()
-
     class Meta:
         model = Medias
         fields = ['id', 'url', 'type']
-
-    def get_url(self, obj):
-        request = self.context.get('request')
-        if request is not None:
-            return request.build_absolute_uri(obj.url.url)
-        return obj.url.url
-
 
 class PublicationSerializer(serializers.ModelSerializer):
     medias = MediaSerializer(many=True, read_only=True)
