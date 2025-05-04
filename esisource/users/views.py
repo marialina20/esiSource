@@ -89,7 +89,7 @@ class UserView(APIView):
 # Récupérer la liste des users
 
 class UserListView(APIView):
-    permission_classes = [IsAdmin]
+    #permission_classes = [IsAdmin]
 
     def get(self, request):
         users = CustomUser.objects.all()

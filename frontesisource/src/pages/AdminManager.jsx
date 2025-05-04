@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navvbartwo from './Navvbartwo';
 import { FaInstagram, FaFacebook, FaTwitter, FaLinkedin } from "react-icons/fa";
 import './AdminManager.css';
+import axios from 'axios';
+
 
 const AdminManager = () => {
-    // State for the list of users
+    const [users, setUsers] = useState([]);
+    
+    
+    /*// State for the list of users
     const [users, setUsers] = useState([
         { id: 1, username: 'Walaa', name: 'Walaa', surname: 'Beltreche', email: 'In_beltreche@esi.dz' },
         { id: 2, username: 'NHADbell', name: 'NHAD', surname: 'Beltreche', email: 'In_beltreche@esi.dz' },
@@ -14,7 +19,37 @@ const AdminManager = () => {
         { id: 6, username: 'Maria', name: 'Maria', surname: 'Beltreche', email: 'In_beltreche@esi.dz' },
         { id: 7, username: 'Douae', name: 'Douae', surname: 'Beltreche', email: 'In_beltreche@esi.dz' },
 
-    ]);
+    ]);*/
+
+
+   
+    const handleGetUsers = async () => {
+        try {
+            const response = await axios.get('http://127.0.0.1:8000/users/all/');
+            setUsers(response.data);
+        } catch (error) {
+            // Affichage détaillé de l'erreur dans la console
+            if (error.response) {
+                // La requête a été faite et le serveur a répondu avec un code de statut qui n'est pas 2xx
+                console.error('Erreur réponse du serveur :', error.response);
+                console.error('Détails de l\'erreur :', error.response.data);
+                console.error('Code de statut :', error.response.status);
+                console.error('En-têtes de la réponse :', error.response.headers);
+            } else if (error.request) {
+                // La requête a été faite mais aucune réponse n'a été reçue
+                console.error('Aucune réponse reçue :', error.request);
+            } else {
+                // Une erreur s'est produite lors de la configuration de la requête
+                console.error('Erreur lors de la configuration de la requête :', error.message);
+            }
+        }
+    };
+    
+
+useEffect(() => {
+    handleGetUsers(); // Appelle la fonction pour récupérer les utilisateurs
+}, []);
+    
 
     // State for controlling the modal visibility and mode (add or edit)
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -29,6 +64,7 @@ const AdminManager = () => {
         email: '',
         phone: '',
         password: '',
+        role:'',
     });
 
     // Function to handle deleting a user
@@ -40,11 +76,11 @@ const AdminManager = () => {
     const openAddModal = () => {
         setModalMode('add');
         setFormData({
-            username: '',
-            name: '',
-            surname: '',
+            Nom: '',
+            Prenom: '',
             email: '',
-            phone: '',
+            Telephone: '',
+            Role: '',
             password: '',
         });
         setIsModalOpen(true);
@@ -57,11 +93,11 @@ const AdminManager = () => {
             setModalMode('edit');
             setCurrentUserId(id);
             setFormData({
-                username: userToEdit.username,
-                name: userToEdit.name,
-                surname: userToEdit.surname,
+                nom: userToEdit.nom,
+                prenom: userToEdit.prenom,
+                telephone: userToEdit.telephone,
                 email: userToEdit.email,
-                phone: '',
+                role: userToEdit.role ,
                 password: '',
             });
             setIsModalOpen(true);
@@ -102,7 +138,7 @@ const AdminManager = () => {
             // Add new user
             const newUser = {
                 id: users.length ? users[users.length - 1].id + 1 : 1,
-                username: formData.username,
+                username: formData.nom,
                 name: formData.name,
                 surname: formData.surname,
                 email: formData.email,
@@ -114,7 +150,7 @@ const AdminManager = () => {
                 user.id === currentUserId
                     ? {
                         ...user,
-                        username: formData.username,
+                        nom: formData.nom,
                         name: formData.name,
                         surname: formData.surname,
                         email: formData.email,
@@ -151,29 +187,29 @@ const AdminManager = () => {
                                 <button className="close-btn" onClick={closeModal}>×</button>
                             </div>
                             <div className="modal-body">
-                                <label>Username</label>
+                                <label>Nom</label>
                                 <input
                                     type="text"
-                                    name="username"
-                                    value={formData.username}
+                                    name="Nom"
+                                    value={formData.nom}
                                     onChange={handleInputChange}
                                     placeholder="NHADbell"
                                 />
-                                <label>Name</label>
+                                <label>Prenom</label>
                                 <input
                                     type="text"
-                                    name="name"
-                                    value={formData.name}
+                                    name="prenom"
+                                    value={formData.prenom}
                                     onChange={handleInputChange}
                                     placeholder="NHAD"
                                 />
-                                <label>Surname</label>
+                                <label>Telephone</label>
                                 <input
                                     type="text"
-                                    name="surname"
-                                    value={formData.surname}
+                                    name="telephone"
+                                    value={formData.telephone}
                                     onChange={handleInputChange}
-                                    placeholder="Beltreche"
+                                    placeholder="0555555"
                                 />
                                 <label>Email</label>
                                 <input
@@ -182,15 +218,22 @@ const AdminManager = () => {
                                     value={formData.email}
                                     onChange={handleInputChange}
                                     placeholder="In_beltreche@esi.dz"
+
                                 />
-                                <label>Phone number</label>
-                                <input
-                                    type="text"
-                                    name="phone"
-                                    value={formData.phone}
-                                    onChange={handleInputChange}
-                                    placeholder="0550555555"
-                                />
+                               <label>Role</label>
+                               
+                                <select
+                                   name="role"
+                                   value={formData.role}
+                                   onChange={handleInputChange}
+                                   className="form-control"
+                                >
+                                    <option value="admin">admin</option>
+                                    <option value="redacteur">redacteur</option>
+                                    <option value="editeur">editeur</option>
+                                </select>
+
+
                                 <label>{modalMode === 'add' ? 'Set a password' : 'Reset password'}</label>
                                 <input
                                     type="password"
@@ -216,10 +259,11 @@ const AdminManager = () => {
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>&nbsp;UserName</th>
-                            <th>&nbsp;&nbsp;Name</th>
-                            <th>&nbsp;&nbsp;Surname</th>
+                            <th>&nbsp;Nom</th>
+                            <th>&nbsp;&nbsp;Prenom</th>
+                            <th>&nbsp;&nbsp;Telephone</th>
                             <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Email</th>
+                            <th>&nbsp;&nbsp;Role</th>
                             <th>   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   Actions</th>
                         </tr>
                     </thead>
@@ -227,10 +271,11 @@ const AdminManager = () => {
                         {users.map(user => (
                             <tr key={user.id}>
                                 <td>{user.id}</td>
-                                <td>{user.username}</td>
-                                <td>{user.name}</td>
-                                <td>{user.surname}</td>
+                                <td>{user.nom}</td>
+                                <td>{user.prenom}</td>
+                                <td>{user.telephone}</td>
                                 <td>{user.email}</td>
+                                <td>{user.role}</td>
                                 <td>
                                     <button
                                         className="action-btn edit-btn"

@@ -190,7 +190,7 @@
     margin-bottom: 5px;
 }
 
-.modal-body input {
+.modal-body input,select {
     width: 100%;
     padding: 8px;
     margin-bottom: 15px;

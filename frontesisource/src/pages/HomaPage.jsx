@@ -10,7 +10,7 @@ import { RiGroupLine } from "react-icons/ri";
 import { MdDashboard } from "react-icons/md";
 import { FaInstagram, FaFacebook, FaTwitter, FaLinkedin } from "react-icons/fa";
 import Navvbartwo from './Navvbartwo';
-
+import AdminManager from'./AdminManager';
 const HomePage = () => {
     return (
         <div className="homepage">
@@ -47,8 +47,10 @@ const HomePage = () => {
                         <span>Tableau de bord</span>
                     </div>
                     <div className="option">
-                        <RiGroupLine className="option-icon" />
-                        <span>Gestion utilisateurs</span>
+                    <Link to="/AdminManager">
+                            <RiGroupLine className="option-icon" />
+                            <span>Gestion utilisateurs</span>
+                        </Link>
                     </div>
                 </div>
             </section>
