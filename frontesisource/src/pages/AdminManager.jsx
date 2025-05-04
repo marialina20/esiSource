@@ -58,29 +58,37 @@ useEffect(() => {
 
     // State for the form fields in the modal
     const [formData, setFormData] = useState({
-        username: '',
-        name: '',
-        surname: '',
+        nom: '',
+        prenom: '',
         email: '',
-        phone: '',
+        telephone: '',
+        role: '',
         password: '',
-        role:'',
     });
 
     // Function to handle deleting a user
-    const handleDelete = (id) => {
-        setUsers(users.filter(user => user.id !== id));
+    const handleDelete = async (id) => {
+        try {
+            // Appel à l’API Django pour supprimer l’utilisateur
+            await axios.delete(`http://127.0.0.1:8000/users/delete/${id}/`);
+            
+            // Met à jour le state local en retirant l’utilisateur
+            setUsers(users.filter(user => user.id !== id));
+        } catch (error) {
+            console.error('Erreur lors de la suppression :', error);
+            alert('La suppression a échoué.');
+        }
     };
 
     // Function to open the modal in "add" mode
     const openAddModal = () => {
         setModalMode('add');
         setFormData({
-            Nom: '',
-            Prenom: '',
+            nom: '',
+            prenom: '',
             email: '',
-            Telephone: '',
-            Role: '',
+            telephone: '',
+            role: '',
             password: '',
         });
         setIsModalOpen(true);
@@ -109,11 +117,11 @@ useEffect(() => {
         setIsModalOpen(false);
         setCurrentUserId(null);
         setFormData({
-            username: '',
-            name: '',
-            surname: '',
+            nom: '',
+            prenom: '',
             email: '',
-            phone: '',
+            telephone: '',
+            role: '',
             password: '',
         });
     };
@@ -128,35 +136,48 @@ useEffect(() => {
     };
 
     // Function to handle form submission (add or edit user)
-    const handleSubmit = () => {
-        if (!formData.username || !formData.name || !formData.surname || !formData.email || !formData.phone || !formData.password) {
-            alert('Please fill in all fields.');
-            return;
-        }
-
+    const handleSubmit = async () => {
+     
+//prblm dans le role  !formData.role || 
         if (modalMode === 'add') {
+            if (!formData.nom || !formData.prenom || !formData.telephone || !formData.email ||!formData.password) {
+                alert('Please fill in all fields.');
+                return;
+            }
             // Add new user
             const newUser = {
                 id: users.length ? users[users.length - 1].id + 1 : 1,
-                username: formData.nom,
-                name: formData.name,
-                surname: formData.surname,
+                nom: formData.nom,
+                prenom: formData.prenom,
                 email: formData.email,
+                telephone: formData.telephone,
+                role:formData.role,
+                password:formData.password,
             };
-            setUsers([...users, newUser]);
+          //  setUsers([...users, newUser]);
+            const response = await axios.post('http://127.0.0.1:8000/users/register/', formData);
+            alert('Utilisateur ajouté/modifié avec succès.');
+            setUsers([...users, response.data]); // ajoute la réponse du backend
         } else if (modalMode === 'edit' && currentUserId !== null) {
             // Edit existing user
+            const response = await axios.put(`http://127.0.0.1:8000/users/update/${currentUserId}/`, formData);
             setUsers(users.map(user =>
+                user.id === currentUserId ? response.data : user
+            ));
+        
+          /*  setUsers(users.map(user =>
                 user.id === currentUserId
                     ? {
                         ...user,
                         nom: formData.nom,
-                        name: formData.name,
-                        surname: formData.surname,
+                        prenom: formData.prenom,
                         email: formData.email,
+                        telephone: formData.telephone,
+                        role:formData.role,
+                        password:formData.password,
                     }
                     : user
-            ));
+            ));*/
         }
 
         closeModal();
@@ -190,7 +211,7 @@ useEffect(() => {
                                 <label>Nom</label>
                                 <input
                                     type="text"
-                                    name="Nom"
+                                    name="nom"
                                     value={formData.nom}
                                     onChange={handleInputChange}
                                     placeholder="NHADbell"
@@ -228,6 +249,7 @@ useEffect(() => {
                                    onChange={handleInputChange}
                                    className="form-control"
                                 >
+                                    <option value="="></option>
                                     <option value="admin">admin</option>
                                     <option value="redacteur">redacteur</option>
                                     <option value="editeur">editeur</option>

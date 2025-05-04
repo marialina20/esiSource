@@ -3,17 +3,17 @@ from rest_framework.permissions import BasePermission, SAFE_METHODS
 # Admin uniquement
 class IsAdmin(BasePermission):
     def has_permission(self, request, view):
-        return request.user.is_authenticated and request.user.role == 'admin'
+        return  request.user.role == 'admin'
 
 # Éditeur ou Admin
 class IsEditorOrAdmin(BasePermission):
     def has_permission(self, request, view):
-        return request.user.is_authenticated and request.user.role in ['editeur', 'admin']
+        return  request.user.role in ['editeur', 'admin']
 
 # Rédacteur uniquement
 class IsRedacteur(BasePermission):
     def has_permission(self, request, view):
-        return request.user.is_authenticated and request.user.role == 'redacteur'
+        return request.user.role == 'redacteur'
 
 # Soit propriétaire du compte, soit admin
 class IsOwnerOrAdmin(BasePermission):

@@ -27,7 +27,9 @@ class RegisterView(APIView):
             telephone=data.get('telephone', ''),
             role=data['role']
         )
-        return Response({"message": "Utilisateur créé avec succès"}, status=status.HTTP_201_CREATED)
+        serializer = UserSerializer(user)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
 
 # Connexion
 class LoginView(APIView):
@@ -67,7 +69,7 @@ class UserUpdateView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 class UserDeleteView(APIView):
-    permission_classes = [IsAdmin]
+    #permission_classes = [IsAdmin]
 
     def delete(self, request, pk):
         try:
