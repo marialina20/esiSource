@@ -13,7 +13,7 @@ const Navvbar = () => {
   };
 
   const handleSeDeconnecter = () => {
-    navigate('/LoginP');
+    navigate('/');
   };
 
   const navButtonStyle = (path) => ({
@@ -61,16 +61,7 @@ const Navvbar = () => {
           Home
         </button>
 
-        <button
-          onClick={() => handleNavigate('/add-article')}
-          style={navButtonStyle('/add-article')}
-          onMouseEnter={(e) => (e.target.style.fontWeight = 'bold')}
-          onMouseLeave={(e) =>
-            (e.target.style.fontWeight = isActive('/AjoutArticle') ? 'bold' : 'normal')
-          }
-        >
-          Add article
-        </button>
+        
 
         <button
           onClick={() => handleNavigate('/Upload')}
@@ -95,14 +86,14 @@ const Navvbar = () => {
         </button>
 
         <button
-          onClick={() => handleNavigate('/history')}
-          style={navButtonStyle('/history')}
+          onClick={() => handleNavigate('/Historique')}
+          style={navButtonStyle('/Historique')}
           onMouseEnter={(e) => (e.target.style.fontWeight = 'bold')}
           onMouseLeave={(e) =>
             (e.target.style.fontWeight = isActive('/history') ? 'bold' : 'normal')
           }
         >
-          History
+          Historique
         </button>
 
         <button

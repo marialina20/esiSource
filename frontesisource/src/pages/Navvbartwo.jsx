@@ -13,7 +13,7 @@ const Navvbartwo = () => {
   };
 
   const handleSeDeconnecter = () => {
-    navigate('/LoginP');
+    navigate('/login');
   };
 
   const navButtonStyle = (path) => ({
@@ -52,31 +52,110 @@ const Navvbartwo = () => {
       {/* Right-aligned nav buttons */}
       <div style={{ display: 'flex', marginLeft: 'auto', alignItems: 'center' }}>
         <button
-          onClick={() => handleNavigate('/home')}
-          style={navButtonStyle('/home')}
-          onMouseEnter={(e) => (e.target.style.fontWeight = 'bold')}
-          onMouseLeave={(e) => (e.target.style.fontWeight = isActive('/home') ? 'bold' : 'normal')}
-        >
-          Accueil
-        </button>
+  onClick={() => {
+    if (location.pathname !== '/HomePage') {
+      navigate('/HomePage');
+      // Attend que la navigation finisse puis scroll vers #contact
+      setTimeout(() => {
+        const contactSection = document.getElementById('accueil');
+        if (contactSection) {
+          contactSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 300); // Attendre que la page se charge
+    } else {
+      const contactSection = document.getElementById('accueil');
+      if (contactSection) {
+        contactSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }}
+  style={{
+    marginRight: '30px',
+    padding: '10px',
+    color: '#4D4D4D',
+    fontWeight: 'normal',
+    border: 'none',
+    backgroundColor: '#ffff',
+    cursor: 'pointer',
+    borderBottom: 'none',
+    transition: 'all 0.2s ease',
+  }}
+  onMouseEnter={(e) => (e.target.style.fontWeight = 'bold')}
+  onMouseLeave={(e) => (e.target.style.fontWeight = isActive('/HomePage') ? 'bold' : 'normal')}
+>
+  Accueil
+</button>
   
         <button
-          onClick={() => handleNavigate('/about')}
-          style={navButtonStyle('/about')}
-          onMouseEnter={(e) => (e.target.style.fontWeight = 'bold')}
-          onMouseLeave={(e) => (e.target.style.fontWeight = isActive('/about') ? 'bold' : 'normal')}
-        >
-          About Us
-        </button>
+  onClick={() => {
+    if (location.pathname !== '/HomePage') {
+      navigate('/HomePage');
+      // Attend que la navigation finisse puis scroll vers #contact
+      setTimeout(() => {
+        const contactSection = document.getElementById('about');
+        if (contactSection) {
+          contactSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 300); // Attendre que la page se charge
+    } else {
+      const contactSection = document.getElementById('about');
+      if (contactSection) {
+        contactSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }}
+  style={{
+    marginRight: '30px',
+    padding: '10px',
+    color: '#4D4D4D',
+    fontWeight: 'normal',
+    border: 'none',
+    backgroundColor: '#ffff',
+    cursor: 'pointer',
+    borderBottom: 'none',
+    transition: 'all 0.2s ease',
+  }}
+  onMouseEnter={(e) => (e.target.style.fontWeight = 'bold')}
+  onMouseLeave={(e) => (e.target.style.fontWeight = isActive('/HomePage') ? 'bold' : 'normal')}
+>
+  About Us
+</button>
   
         <button
-          onClick={() => handleNavigate('/contact')}
-          style={navButtonStyle('/contact')}
-          onMouseEnter={(e) => (e.target.style.fontWeight = 'bold')}
-          onMouseLeave={(e) => (e.target.style.fontWeight = isActive('/contact') ? 'bold' : 'normal')}
-        >
-          Contact Us
-        </button>
+  onClick={() => {
+    if (location.pathname !== '/HomePage') {
+      navigate('/HomePage');
+      // Attend que la navigation finisse puis scroll vers #contact
+      setTimeout(() => {
+        const contactSection = document.getElementById('contact');
+        if (contactSection) {
+          contactSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 300); // Attendre que la page se charge
+    } else {
+      const contactSection = document.getElementById('contact');
+      if (contactSection) {
+        contactSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }}
+  style={{
+    marginRight: '30px',
+    padding: '10px',
+    color: '#4D4D4D',
+    fontWeight: 'normal',
+    border: 'none',
+    backgroundColor: '#ffff',
+    cursor: 'pointer',
+    borderBottom: 'none',
+    transition: 'all 0.2s ease',
+  }}
+  onMouseEnter={(e) => (e.target.style.fontWeight = 'bold')}
+  onMouseLeave={(e) => (e.target.style.fontWeight = isActive('/HomePage') ? 'bold' : 'normal')}
+>
+  Contact Us
+</button>
+
   
         <button
          style={{

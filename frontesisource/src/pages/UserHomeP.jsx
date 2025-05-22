@@ -4,13 +4,18 @@ import pub from '../images/pub.png'; // Import pub image
 import etat from '../images/etat.png'; // Import etat image
 import NavbarUser from './NavbarUser';
 
+import NavvbarAjoutArticle from './NavvbarAjoutArticle';
+import Navvbartwo from './Navvbartwo';
 
 const UserHomeP = () => {
   const navigate = useNavigate();
-
+const role = localStorage.getItem('user_role');
   return (
     <div>
-<NavbarUser />
+<div>
+      {role === 'admin' ? <Navvbartwo /> : <NavvbarAjoutArticle />}
+      {/* le reste de la page */}
+    </div>
     <div
       style={{
         display: 'flex',

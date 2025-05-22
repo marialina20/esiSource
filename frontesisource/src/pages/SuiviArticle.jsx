@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navvbar from './NavbarUser';
 
+import axios from 'axios';
+
+import NavvbarAjoutArticle from './NavvbarAjoutArticle';
+import Navvbartwo from './Navvbartwo';
 // Publication class definition
 class Publication {
   constructor(id, titre, contenu, auteur_id, statut, date_creation, date_validation, validateur_id) {
@@ -16,69 +20,66 @@ class Publication {
   }
 }
 
-// Create and export publications array
-export const publications = [
-  new Publication(
-    1,
-    "L'ESI Organise une Journée Portes Ouvertes",
-    `L'École Nationale Supérieure d'Informatique (ESI) ouvre ses portes blaljdhfncugeuidhfuhyrghfrfhvfvbgrehtyghrufhbrdhbhvbfhrjgbrf
-    dhbvhjvfhjbfhnhbgjfnv fkjngf
-    fjhbvfhjgbrifjvnfjngfbgfjhbvf
-    jvbfhjnbfjnvf vgfbjfgnfjbn fkb hbfhbvgrhgvbf bfihgreiuvrf bfjhgbfijhrng
-    fhbgrighfujvnfjgbrjgvnfjgbrjkgr fhguretrhv
-    nv fkjrgirjgvnjfbnhfbgdjfbfjkgb jdbsjrgbjfkdbnhf...`,
-    'pp',
-    'refuse',
-    '2025-02-15',
-    '2025-02-15',
-    1
-  ),
-  new Publication(
-    2,
-    "Article Refusé Exemple",
-    "Contenu de l'article refusé...",
-    'pp',
-    'en_attente',
-    '2025-02-15',
-    '2025-02-15',
-    1
-  )
-];
+
+
+
 
 const SuiviArticle = () => {
   const navigate = useNavigate();
+  const [articles, setArticles] = useState([]);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedArticleId, setSelectedArticleId] = useState(null);
+  const role = localStorage.getItem('user_role');
+
+  const API_BASE_URL = 'http://127.0.0.1:8000/api/publications/';
+
+  useEffect(() => {
+    fetchArticles();
+  }, []);
+
+  const fetchArticles = async () => {
+    try {
+      const response = await axios.get(API_BASE_URL);
+      setArticles(response.data);
+    } catch (error) {
+      console.error('Erreur lors du chargement des articles :', error);
+    }
+  };
 
   const handleDeleteConfirmation = (id) => {
     setSelectedArticleId(id);
     setShowDeleteModal(true);
   };
 
-  const handleDelete = () => {
-    // Add your delete logic here
-    console.log('Deleting article:', selectedArticleId);
-    setShowDeleteModal(false);
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`${API_BASE_URL}${selectedArticleId}/`);
+      setShowDeleteModal(false);
+      fetchArticles(); // refresh list
+    } catch (error) {
+      console.error('Erreur lors de la suppression de l\'article :', error);
+    }
   };
 
-  const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString('fr-FR');
-  };
+  const formatDate = (dateString) => new Date(dateString).toLocaleDateString('fr-FR');
 
   const getStatusLabel = (statut) => {
-    const statusMap = {
-      'brouillon': 'Brouillon',
-      'en_attente': 'En cours',
-      'valide': 'Acceptée',
-      'refuse': 'Refusé',
-      'public': 'Public'
+    const map = {
+      brouillon: 'Brouillon',
+      en_attente: 'En cours',
+      valide: 'Acceptée',
+      refuse: 'Refusé',
+      public: 'Public'
     };
-    return statusMap[statut] || statut;
+    return map[statut] || statut;
   };
 
   return (
     <div style={{ backgroundColor: '#E4F1FF', minHeight: '100vh' }}>
-      <Navvbar />
+      <div>
+      {role === 'admin' ? <Navvbartwo /> : <NavvbarAjoutArticle />}
+      {/* le reste de la page */}
+    </div>
       
       {/* Delete Confirmation Modal */}
       {showDeleteModal && (
@@ -153,7 +154,7 @@ const SuiviArticle = () => {
         borderBottom: '2px solid #dee2e6'
       }}>
         <th style={{ padding: '16px', textAlign: 'left', fontWeight: 600 }}>ID</th>
-        <th style={{ padding: '16px', textAlign: 'left', fontWeight: 600 }}>Titre</th>
+        <th style={{ padding: '16px', textAlign: 'left', fontWeight: 600 }}>Type</th>
         <th style={{ padding: '16px', textAlign: 'left', fontWeight: 600 }}>Date</th>
         <th style={{ padding: '16px', textAlign: 'left', fontWeight: 600 }}>Etat</th>
         <th style={{ padding: '16px', textAlign: 'left', fontWeight: 600 }}>Delete</th>
@@ -161,7 +162,7 @@ const SuiviArticle = () => {
     </thead>
 
     <tbody>
-      {publications.map((pub) => (
+      {articles.map((pub) => (
         <tr 
           key={pub.id}
           style={{ 
@@ -172,8 +173,8 @@ const SuiviArticle = () => {
           onClick={() => navigate(`/article/${pub.id}`)}
         >
           <td style={{ padding: '16px' }}>{pub.id}</td>
-          <td style={{ padding: '16px' }}>{pub.titre}</td>
-          <td style={{ padding: '16px' }}>{formatDate(pub.date_creation)}</td>
+          <td style={{ padding: '16px' }}>{pub.type}</td>
+          <td style={{ padding: '16px' }}>{formatDate(pub.date_planifiee)}</td>
           <td style={{ padding: '16px' }}>
             <span style={{
               padding: '4px 8px',
@@ -213,4 +214,4 @@ const SuiviArticle = () => {
 };
 
 
-export default SuiviArticle;
+export { SuiviArticle };

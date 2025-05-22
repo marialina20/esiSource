@@ -115,14 +115,16 @@ WSGI_APPLICATION = 'esisource.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'esisourceDB',
-        'USER': 'esisource',
-        'PASSWORD': '123456789',
-        
-      
+        'NAME': 'esisourcee',
+        'USER': 'postgres',
+        'PASSWORD': 'ahlem1234',
+        'HOST': 'localhost',
+        'PORT': '5433',
     }
 }
 

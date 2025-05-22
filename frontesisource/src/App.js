@@ -1,6 +1,6 @@
 import './App.css';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import SuiviArticle from './pages/SuiviArticle';
+import { SuiviArticle } from './pages/SuiviArticle';
 import LoginP from './pages/LoginP';
 import NavbarUser from './pages/NavbarUser';
 import UserHomeP from './pages/UserHomeP';

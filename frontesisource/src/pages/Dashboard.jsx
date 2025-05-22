@@ -19,8 +19,9 @@ const white = total - darkBlue - blue; // 20%
 
 
   return (
+    
     <div style={{ backgroundColor: '#E4F1FF', minHeight: '100vh' }}>
-      <Navvbar />
+      
       <div style={{ paddingTop: '80px', textAlign: 'center', fontWeight: '700', fontSize: '24px', color: '#002366' }}>
         Bienvenue sur Votre DASHBOARD
       </div>

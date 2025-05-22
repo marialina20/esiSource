@@ -22,7 +22,7 @@ const HomePageEditeur = () => {
                         <h1><span>ESiSource:</span> Partager vos publications</h1>
                         <p>Publication facile des articles / médias sur les plateformes 
                         de l’École Nationale Supérieure d’Informatique (ESI).</p>
-                        <Link to="/post" className="hero-button">
+                        <Link to="/AjoutArticle" className="hero-button">
                             Poster <span>→</span>
                         </Link>
                     </div>

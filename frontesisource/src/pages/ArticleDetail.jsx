@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import Navvbar from './NavbarUser';
-import { publications } from './SuiviArticle';
+import { SuiviArticle } from './SuiviArticle';
+
 
 const StatusIndicator = ({ label, active, isLast, isRefused, isAccepted }) => {
   const circleColor = 
@@ -42,11 +44,20 @@ const StatusIndicator = ({ label, active, isLast, isRefused, isAccepted }) => {
   );
 };
 
+
+
 const ArticleDetail = () => {
-  const { id } = useParams();
   const navigate = useNavigate();
-  
-  const article = publications.find(pub => pub.id === Number(id));
+  const { id } = useParams();
+  const [article, setArticle] = useState(null);
+
+  useEffect(() => {
+    axios.get(`http://127.0.0.1:8000/api/publications/${id}/`)
+      .then(res => setArticle(res.data))
+      .catch(err => console.error(err));
+  }, [id]);
+
+  if (!article) return <div>Chargement...</div>;
 
   if (!article) {
     return <div style={{ 

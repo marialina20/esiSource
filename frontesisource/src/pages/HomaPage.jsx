@@ -13,7 +13,7 @@ import Navvbartwo from './Navvbartwo';
 import AdminManager from'./AdminManager';
 const HomePage = () => {
     return (
-        <div className="homepage">
+        <div className="homepage" id="accueil">
             
             <Navvbartwo />
             <section className="hero-section">
@@ -22,7 +22,7 @@ const HomePage = () => {
                         <h1><span>ESiSource:</span> Partager vos publications</h1>
                         <p>Publication facile des articles / médias sur les plateformes 
                         de l’École Nationale Supérieure d’Informatique (ESI).</p>
-                        <Link to="/post" className="hero-button">
+                        <Link to="/AjoutArticle" className="hero-button">
                             Poster <span>→</span>
                         </Link>
                     </div>
@@ -34,29 +34,33 @@ const HomePage = () => {
 
             <section className="options-sectionx">
                 <div className="options-containerx">
-                    <div className="option">
-                        <FiEdit className="option-icon" />
-                        <span>Ajout d’articles</span>
-                    </div>
+                    
                     <div className="option">
                         <HiOutlineDocumentText className="option-icon" />
                         <span>Feedback et planification</span>
                     </div>
+                    <Link to="/dashboard">
                     <div className="option">
-                        <MdDashboard className="option-icon" />
-                        <span>Tableau de bord</span>
-                    </div>
+    
+        <MdDashboard className="option-icon" />
+        <span>Tableau de bord</span>
+    
+</div>
+</Link>
+ <Link to="/AdminManager">
+
                     <div className="option">
-                    <Link to="/AdminManager">
+                   
                             <RiGroupLine className="option-icon" />
                             <span>Gestion utilisateurs</span>
-                        </Link>
+                       
                     </div>
+                     </Link>
                 </div>
             </section>
 
-            <section className="about-section">
-                <div className="about-container">
+            <section className="about-section" id="about">
+                <div className="about-container" >
                     <div className="about-image">
                         <img src={aboutImage} alt="Illustration de About Us" />
                     </div>
@@ -76,7 +80,7 @@ const HomePage = () => {
                                 <strong>ESI</strong>Source<span className="dot">.com</span>
                             </span>
                     </div>
-                    <div className="footer-contact">
+                    <div className="footer-contact" id="contact">
                         <h3>Contact Nous</h3>
                         <p>team@gmail.com</p>
                     </div>

@@ -52,6 +52,7 @@ function Upload() {
                     'Content-Type': 'multipart/form-data',
                 },
             });
+            
 
             // Mise à jour des statuts à "uploaded" après succès
             const updatedFiles = files.map(file => ({
@@ -88,6 +89,10 @@ function Upload() {
     const { getRootProps, getInputProps } = useDropzone({ onDrop, accept: 'application/pdf' });
 
     const handleShownext = () => {
+        window.alert("Article importé avec succès !");
+    
+    // Redirige vers la page d'accueil
+    navigate('/home');
         // navigation vers la prochaine page
     };
 

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import NavvbarAjoutArticle from './NavvbarAjoutArticle';
+import Navvbartwo from './Navvbartwo';
 import { useNavigate } from 'react-router-dom';
 import './AjoutArticle.css';
 import addMediaIcon from '../images/add_media_icon.png';
@@ -75,6 +76,16 @@ const AjoutArticle = () => {
             };
 
             const response = await axios.post('http://localhost:8000/api/publications/', formData, config);
+            alert('article ajouté avec succès.');
+            const role = localStorage.getItem('user_role');
+
+      if (role === 'admin') {
+        navigate('/HomePage');
+      } else if (role === 'redacteur') {
+        navigate('/home');
+      } else {
+        navigate('/');
+      }
             setLastPublication(response.data);
         } catch (error) {
             console.error('Erreur lors de la soumission:', error);
@@ -83,10 +94,15 @@ const AjoutArticle = () => {
             setIsSubmitting(false);
         }
     };
+    
+        const role = localStorage.getItem('user_role');
 
     return (
         <>
-            <NavvbarAjoutArticle />
+            <div>
+      {role === 'admin' ? <Navvbartwo /> : <NavvbarAjoutArticle />}
+      {/* le reste de la page */}
+    </div>
             <div className="ajout-article-container">
                 <h2 className="title">Créer votre article</h2>
 

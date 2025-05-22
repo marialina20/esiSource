@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect ,useState } from 'react';
+
+import axios from 'axios';
 import Navvbar from './NavbarUser';
 import ArticleModal from './ArticleModal';
 import StatusModal from './StatusModal';
@@ -7,30 +9,30 @@ import NavvbarEditeurHome from './NavvbarHomeEditeur';
 
 
 // Sample publications data matching the Publication class structure
-const publications = [
-  {
-    id: 1,
-    titre: "Article 01",
-    contenu: "Contenu de l'article 01...",
-    auteur_id: 1,
-    statut: "en_attente",
-    date_creation: "2023-10-01",
-    date_validation: null,
-    validateur_id: null
-  },
-  {
-    id: 2,
-    titre: "Article 02",
-    contenu: "Contenu de l'article 02...",
-    auteur_id: 1,
-    statut: "en_attente",
-    date_creation: "2023-10-02",
-    date_validation: null,
-    validateur_id: null
-  },
-];
+
 
 const ArticlesList = () => {
+
+  const [publications, setPublications] = useState([]);
+
+  useEffect(() => {
+    axios.get('http://localhost:8000/api/publications/')
+      .then(response => {
+        setPublications(response.data);
+      })
+      .catch(error => {
+        console.error('Erreur lors de la récupération des publications :', error);
+      });
+  }, []);
+
+    // Function to handle deleting an article
+    const handleDelete = (id) => {
+        setPublications(publications.filter(article => article.id !== id));
+    };
+
+    // Function to handle deleting an article
+  
+
   const [showArticleModal, setShowArticleModal] = useState(false);
   const [showStatusModal, setShowStatusModal] = useState(false);
   const [selectedArticle, setSelectedArticle] = useState(null);
@@ -93,6 +95,7 @@ const ArticlesList = () => {
     return statusMap[statut] || statut;
   };
 
+  
   return (
     <div style={{ backgroundColor: '#E4F1FF', minHeight: '100vh' }}>
       <NavvbarEditeurHome />
@@ -113,7 +116,7 @@ const ArticlesList = () => {
                 borderBottom: '2px solid #dee2e6'
               }}>
                 <th style={{ padding: '16px', textAlign: 'left', fontWeight: 600 }}>ID</th>
-                <th style={{ padding: '16px', textAlign: 'left', fontWeight: 600 }}>Titre</th>
+                <th style={{ padding: '16px', textAlign: 'left', fontWeight: 600 }}>Type</th>
                 <th style={{ padding: '16px', textAlign: 'left', fontWeight: 600 }}>Date création</th>
                 <th style={{ padding: '16px', textAlign: 'left', fontWeight: 600 }}>Date validation</th>
                 <th style={{ padding: '16px', textAlign: 'left', fontWeight: 600 }}>Etat</th>
@@ -122,7 +125,7 @@ const ArticlesList = () => {
             </thead>
 
             <tbody>
-              {articles.map((pub) => (
+              {publications.map((pub) => (
                 <tr 
                   key={pub.id}
                   style={{ 
@@ -131,9 +134,9 @@ const ArticlesList = () => {
                 >
                   <td style={{ padding: '16px' }}>{pub.id}</td>
                   <td style={{ padding: '16px', cursor: 'pointer' }} onClick={() => openArticleModal(pub)}>
-                    {pub.titre}
+                    {pub.type}
                   </td>
-                  <td style={{ padding: '16px' }}>{formatDate(pub.date_creation)}</td>
+                  <td style={{ padding: '16px' }}>{formatDate(pub.date_planifiee)}</td>
                   <td style={{ padding: '16px' }}>{formatDate(pub.date_validation)}</td>
                   <td style={{ padding: '16px' }}>
                     <span style={{

@@ -146,7 +146,6 @@ useEffect(() => {
             }
             // Add new user
             const newUser = {
-                id: users.length ? users[users.length - 1].id + 1 : 1,
                 nom: formData.nom,
                 prenom: formData.prenom,
                 email: formData.email,
