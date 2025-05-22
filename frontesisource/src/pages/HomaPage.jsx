@@ -65,8 +65,8 @@ const HomePage = () => {
                         <img src={aboutImage} alt="Illustration de About Us" />
                     </div>
                     <div className="about-content">
-                        <h2>About Us</h2>
-                        <p>Welcome to <strong>ESiSource</strong> where we simplify the publication process and foster knowledge sharing within the ESI community.</p>
+                        <h2>À propos de nous</h2>
+                        <p>Bienvenue sur <strong>ESiSource</strong> où nous simplifions le processus de publication et encourageons le partage des connaissances au sein de la communauté de l'ESI.</p>
                     </div>
                 </div>
             </section>

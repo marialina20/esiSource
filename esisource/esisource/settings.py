@@ -120,11 +120,11 @@ WSGI_APPLICATION = 'esisource.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'esisourcee',
-        'USER': 'postgres',
-        'PASSWORD': 'ahlem1234',
-        'HOST': 'localhost',
-        'PORT': '5433',
+        'NAME': 'esisourcedb',
+        'USER': 'esisource',
+        'PASSWORD': '123456789',
+        'HOST': 'localhost',  # Or your specific host
+        'PORT': '5433',  # Default PostgreSQL port
     }
 }
 

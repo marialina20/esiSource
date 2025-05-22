@@ -13,7 +13,7 @@ const NavvbarAjoutArticle = () => {
   };
 
   const handleSeDeconnecter = () => {
-    navigate('/LoginP');
+    navigate('/login');
   };
 
   const navButtonStyle = (path) => ({
@@ -75,7 +75,7 @@ const NavvbarAjoutArticle = () => {
           onMouseEnter={(e) => (e.target.style.fontWeight = 'bold')}
           onMouseLeave={(e) => (e.target.style.fontWeight = isActive('/Upload') ? 'bold' : 'normal')}
         >
-          Upload Article
+          Importer Article
         </button>
         <button
           onClick={() => handleNavigate('/SuiviArticle')}

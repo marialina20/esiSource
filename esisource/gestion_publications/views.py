@@ -5,6 +5,23 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.decorators import action
 from .models import Publication, Medias
 from .serializers import PublicationSerializer, MediaSerializer
+from rest_framework import viewsets, status
+from rest_framework.response import Response
+from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.decorators import action
+from .models import Publication, Medias
+from .serializers import PublicationSerializer, MediaSerializer
+from django.db.models import Count, Q
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from .models import Publication
+from users.models import CustomUser
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+from .models import Publication
+from users.models import CustomUser
 
 class PublicationViewSet(viewsets.ModelViewSet):
     queryset = Publication.objects.all()
@@ -45,3 +62,28 @@ class PublicationViewSet(viewsets.ModelViewSet):
             return Response(status=status.HTTP_204_NO_CONTENT)
         except Medias.DoesNotExist:
             return Response({"error": "Média non trouvé"}, status=status.HTTP_404_NOT_FOUND)
+        
+class PublicationStatsView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        # Get publication stats
+        total = Publication.objects.count()
+        valides = Publication.objects.filter(statut='published').count()
+        refuses = Publication.objects.filter(statut='draft').count()
+        en_attente = Publication.objects.filter(statut='pending').count()
+        media_count = Medias.objects.count()
+
+        # Get combined user count (redacteur + editeur)
+        users_count = CustomUser.objects.filter(
+            role__in=['redacteur', 'editeur']
+        ).count()
+
+        return Response({
+            "totalPublications": total,
+            "Publications": valides,
+            "medias": media_count,
+            "refusées": refuses,
+            "en_attente": en_attente,
+            "users": users_count  # Combined count of redacteurs and editeurs
+        })

@@ -118,7 +118,7 @@ const Navvbartwo = () => {
   onMouseEnter={(e) => (e.target.style.fontWeight = 'bold')}
   onMouseLeave={(e) => (e.target.style.fontWeight = isActive('/HomePage') ? 'bold' : 'normal')}
 >
-  About Us
+  À propos de nous
 </button>
   
         <button
@@ -153,7 +153,7 @@ const Navvbartwo = () => {
   onMouseEnter={(e) => (e.target.style.fontWeight = 'bold')}
   onMouseLeave={(e) => (e.target.style.fontWeight = isActive('/HomePage') ? 'bold' : 'normal')}
 >
-  Contact Us
+  Contactez-nous
 </button>
 
   
@@ -170,7 +170,7 @@ const Navvbartwo = () => {
           }}
           onClick={handleSeDeconnecter}
         >
-          Sign out
+          Se déconnecter
         </button>
       </div>
     </div>

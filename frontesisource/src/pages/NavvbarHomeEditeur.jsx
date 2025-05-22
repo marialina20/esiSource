@@ -13,7 +13,7 @@ const NavvbarEditeurHome = () => {
   };
 
   const handleSeDeconnecter = () => {
-    navigate('/LoginP');
+    navigate('/login')
   };
 
   const navButtonStyle = (path) => ({
@@ -82,7 +82,7 @@ const NavvbarEditeurHome = () => {
           }}
           onClick={handleSeDeconnecter}
         >
-          Sign out
+          Se déconnecter
         </button>
       </div>
     </div>
