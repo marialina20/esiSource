@@ -13,7 +13,7 @@ const NavvbarEditeurHome = () => {
   };
 
   const handleSeDeconnecter = () => {
-    navigate('/LoginP');
+    navigate('/Login');
   };
 
   const navButtonStyle = (path) => ({
@@ -38,7 +38,7 @@ const NavvbarEditeurHome = () => {
         flexDirection: 'row',
         alignItems: 'center',
         position: 'fixed',
-        top: 0, 
+        top: 0,
         left: 0,
         padding: '12px 40px',
         zIndex: 1000,
@@ -49,7 +49,7 @@ const NavvbarEditeurHome = () => {
         src={Logo}
         alt="Logo"
       />
-  
+
       {/* Right-aligned nav buttons */}
       <div style={{ display: 'flex', marginLeft: 'auto', alignItems: 'center' }}>
         <button
@@ -58,9 +58,9 @@ const NavvbarEditeurHome = () => {
           onMouseEnter={(e) => (e.target.style.fontWeight = 'bold')}
           onMouseLeave={(e) => (e.target.style.fontWeight = isActive('/HomePageEditeur') ? 'bold' : 'normal')}
         >
-          Home
+          Accueil
         </button>
-  
+
         <button
           onClick={() => handleNavigate('/ArticlesList')}  // Updated to navigate to ArticlesList
           style={navButtonStyle('/ArticlesList')}
@@ -69,7 +69,7 @@ const NavvbarEditeurHome = () => {
         >
           Liste des articles
         </button>
-  
+
         <button
           style={{
             padding: '8px 16px',

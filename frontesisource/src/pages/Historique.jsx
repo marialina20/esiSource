@@ -7,27 +7,27 @@ const Historique = () => {
     // State for the list of articles
     const [publications, setPublications] = useState([]);
 
-  useEffect(() => {
-    axios.get('http://localhost:8000/api/publications/')
-      .then(response => {
-        setPublications(response.data);
-      })
-      .catch(error => {
-        console.error('Erreur lors de la récupération des publications :', error);
-      });
-  }, []);
+    useEffect(() => {
+        axios.get('http://localhost:8000/api/publications/')
+            .then(response => {
+                setPublications(response.data);
+            })
+            .catch(error => {
+                console.error('Erreur lors de la récupération des publications :', error);
+            });
+    }, []);
 
     // Function to handle deleting an article
     const handleDelete = (id) => {
         setPublications(publications.filter(article => article.id !== id));
     };
-     const formatDate = (dateString) => new Date(dateString).toLocaleDateString('fr-FR');
+    const formatDate = (dateString) => new Date(dateString).toLocaleDateString('fr-FR');
 
     return (
-        
+
         <div className="historique-page">
             <NavvbarAjoutArticle />
-            <div className="articles-label">Articles</div>
+            <h2 style={{ color: '#002366', marginBottom: '30px' }}>Articles</h2>
             <table className="article-table">
                 <thead>
                     <tr>

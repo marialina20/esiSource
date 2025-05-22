@@ -77,10 +77,10 @@ const SuiviArticle = () => {
   return (
     <div style={{ backgroundColor: '#E4F1FF', minHeight: '100vh' }}>
       <div>
-      {role === 'admin' ? <Navvbartwo /> : <NavvbarAjoutArticle />}
-      {/* le reste de la page */}
-    </div>
-      
+        {role === 'admin' ? <Navvbartwo /> : <NavvbarAjoutArticle />}
+        {/* le reste de la page */}
+      </div>
+
       {/* Delete Confirmation Modal */}
       {showDeleteModal && (
         <div style={{
@@ -139,75 +139,75 @@ const SuiviArticle = () => {
       )}
 
       <div style={{ padding: '40px 20px', maxWidth: '1200px', margin: '0 auto' }}>
-        <h1 style={{ color: '#002366', marginBottom: '30px' }}>Suivez vos articles</h1>
+        <h2 style={{ color: '#002366', marginBottom: '30px' }}><br />Suivez vos articles</h2>
 
         <div style={{
-  backgroundColor: 'white',
-  borderRadius: '8px',
-  boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-  overflowX: 'auto'
-}}>
-  <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-    <thead>
-      <tr style={{ 
-        backgroundColor: '#f8f9fa',
-        borderBottom: '2px solid #dee2e6'
-      }}>
-        <th style={{ padding: '16px', textAlign: 'left', fontWeight: 600 }}>ID</th>
-        <th style={{ padding: '16px', textAlign: 'left', fontWeight: 600 }}>Type</th>
-        <th style={{ padding: '16px', textAlign: 'left', fontWeight: 600 }}>Date</th>
-        <th style={{ padding: '16px', textAlign: 'left', fontWeight: 600 }}>Etat</th>
-        <th style={{ padding: '16px', textAlign: 'left', fontWeight: 600 }}>Delete</th>
-      </tr>
-    </thead>
+          backgroundColor: 'white',
+          borderRadius: '8px',
+          boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+          overflowX: 'auto'
+        }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+            <thead>
+              <tr style={{
+                backgroundColor: '#f8f9fa',
+                borderBottom: '2px solid #dee2e6'
+              }}>
+                <th style={{ padding: '16px', textAlign: 'left', fontWeight: 600 }}>ID</th>
+                <th style={{ padding: '16px', textAlign: 'left', fontWeight: 600 }}>Type</th>
+                <th style={{ padding: '16px', textAlign: 'left', fontWeight: 600 }}>Date</th>
+                <th style={{ padding: '16px', textAlign: 'left', fontWeight: 600 }}>Etat</th>
+                <th style={{ padding: '16px', textAlign: 'left', fontWeight: 600 }}>Delete</th>
+              </tr>
+            </thead>
 
-    <tbody>
-      {articles.map((pub) => (
-        <tr 
-          key={pub.id}
-          style={{ 
-            cursor: 'pointer',
-            borderBottom: '1px solid #dee2e6',
-            ':hover': { backgroundColor: '#f8f9fa' }
-          }}
-          onClick={() => navigate(`/article/${pub.id}`)}
-        >
-          <td style={{ padding: '16px' }}>{pub.id}</td>
-          <td style={{ padding: '16px' }}>{pub.type}</td>
-          <td style={{ padding: '16px' }}>{formatDate(pub.date_planifiee)}</td>
-          <td style={{ padding: '16px' }}>
-            <span style={{
-              padding: '4px 8px',
-              borderRadius: '4px',
-              backgroundColor: pub.statut === 'valide' ? '#e6ffe6' : '#fff3e6',
-              color: pub.statut === 'valide' ? '#006600' : '#cc6600'
-            }}>
-              {getStatusLabel(pub.statut)}
-            </span>
-          </td>
-          <td style={{ padding: '16px' }}>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                handleDeleteConfirmation(pub.id);
-              }}
-              style={{
-                background: 'none',
-                border: 'none',
-                color: '#002366',
-                cursor: 'pointer',
-                fontWeight: '600',
-                ':hover': { textDecoration: 'underline' }
-              }}
-            >
-              Delete
-            </button>
-          </td>
-        </tr>
-      ))}
-    </tbody>
-  </table>
-</div>
+            <tbody>
+              {articles.map((pub) => (
+                <tr
+                  key={pub.id}
+                  style={{
+                    cursor: 'pointer',
+                    borderBottom: '1px solid #dee2e6',
+                    ':hover': { backgroundColor: '#f8f9fa' }
+                  }}
+                  onClick={() => navigate(`/article/${pub.id}`)}
+                >
+                  <td style={{ padding: '16px' }}>{pub.id}</td>
+                  <td style={{ padding: '16px' }}>{pub.type}</td>
+                  <td style={{ padding: '16px' }}>{formatDate(pub.date_planifiee)}</td>
+                  <td style={{ padding: '16px' }}>
+                    <span style={{
+                      padding: '4px 8px',
+                      borderRadius: '4px',
+                      backgroundColor: pub.statut === 'valide' ? '#e6ffe6' : '#fff3e6',
+                      color: pub.statut === 'valide' ? '#006600' : '#cc6600'
+                    }}>
+                      {getStatusLabel(pub.statut)}
+                    </span>
+                  </td>
+                  <td style={{ padding: '16px' }}>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDeleteConfirmation(pub.id);
+                      }}
+                      style={{
+                        background: 'none',
+                        border: 'none',
+                        color: '#002366',
+                        cursor: 'pointer',
+                        fontWeight: '600',
+                        ':hover': { textDecoration: 'underline' }
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

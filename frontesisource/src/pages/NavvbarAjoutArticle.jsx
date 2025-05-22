@@ -13,7 +13,7 @@ const NavvbarAjoutArticle = () => {
   };
 
   const handleSeDeconnecter = () => {
-    navigate('/LoginP');
+    navigate('/Login');
   };
 
   const navButtonStyle = (path) => ({
@@ -57,7 +57,7 @@ const NavvbarAjoutArticle = () => {
           onMouseEnter={(e) => (e.target.style.fontWeight = 'bold')}
           onMouseLeave={(e) => (e.target.style.fontWeight = isActive('/home') ? 'bold' : 'normal')}
         >
-          Home
+          Accueil
         </button>
 
         <button
@@ -75,7 +75,7 @@ const NavvbarAjoutArticle = () => {
           onMouseEnter={(e) => (e.target.style.fontWeight = 'bold')}
           onMouseLeave={(e) => (e.target.style.fontWeight = isActive('/Upload') ? 'bold' : 'normal')}
         >
-          Upload Article
+          Charger Article
         </button>
         <button
           onClick={() => handleNavigate('/SuiviArticle')}

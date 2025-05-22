@@ -13,7 +13,7 @@ const NavvbarAdminHome = () => {
   };
 
   const handleSeDeconnecter = () => {
-    navigate('/LoginP');
+    navigate('/Login');
   };
 
   const navButtonStyle = (path) => ({
@@ -37,7 +37,7 @@ const NavvbarAdminHome = () => {
         flexDirection: 'row',
         alignItems: 'center',
         position: 'fixed',
-        top: 0, 
+        top: 0,
         left: 0,
         padding: '12px 40px',
         zIndex: 1000,
@@ -48,7 +48,7 @@ const NavvbarAdminHome = () => {
         src={Logo}
         alt="Logo"
       />
-  
+
       {/* Right-aligned nav buttons */}
       <div style={{ display: 'flex', marginLeft: 'auto', alignItems: 'center' }}>
         <button
@@ -57,9 +57,9 @@ const NavvbarAdminHome = () => {
           onMouseEnter={(e) => (e.target.style.fontWeight = 'bold')}
           onMouseLeave={(e) => (e.target.style.fontWeight = isActive('/home') ? 'bold' : 'normal')}
         >
-          Home
+          Accueil
         </button>
-  
+
         <button
           onClick={() => handleNavigate('/Manage')}
           style={navButtonStyle('/Manage')}
@@ -68,7 +68,7 @@ const NavvbarAdminHome = () => {
         >
           Manage users
         </button>
-  
+
         <button
           onClick={() => handleNavigate('/Dashboard')}
           style={navButtonStyle('/Dashboard')}
@@ -77,16 +77,16 @@ const NavvbarAdminHome = () => {
         >
           Dashboards
         </button>
-  
+
         <button
-         style={{
+          style={{
             padding: '8px 16px',
-            marginRight : '80px',
+            marginRight: '80px',
             backgroundColor: '#ffff',
             borderRadius: '5px',
             border: '1px solid #0E00AF',
             boxShadow: '0px 2px 2px rgba(14, 0, 175, 0.7)',
-         
+
             cursor: 'pointer',
           }}
           onClick={handleSeDeconnecter}
@@ -96,7 +96,7 @@ const NavvbarAdminHome = () => {
       </div>
     </div>
   );
-  
+
 };
 
 export default NavvbarAdminHome;

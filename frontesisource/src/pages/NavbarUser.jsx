@@ -13,7 +13,7 @@ const Navvbar = () => {
   };
 
   const handleSeDeconnecter = () => {
-    navigate('/');
+    navigate('/Login');
   };
 
   const navButtonStyle = (path) => ({
@@ -58,10 +58,10 @@ const Navvbar = () => {
             (e.target.style.fontWeight = isActive('/home') ? 'bold' : 'normal')
           }
         >
-          Home
+          Accueil
         </button>
 
-        
+
 
         <button
           onClick={() => handleNavigate('/Upload')}
@@ -71,7 +71,7 @@ const Navvbar = () => {
             (e.target.style.fontWeight = isActive('/Upload') ? 'bold' : 'normal')
           }
         >
-          Upload article
+          Charger Article
         </button>
 
         <button
